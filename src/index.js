@@ -1,15 +1,18 @@
 import dva from 'dva';
 import createLoading from 'dva-loading';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import './index.css';
+
+injectTapEventPlugin();
 
 // 1. Initialize
 const app = dva();
 
 app.model(require('./models/bookStore'));
 
-app.model(require("./models/bookReader"));
+app.model(require('./models/bookReader'));
 
-app.model(require("./models/bookDetail"));
+app.model(require('./models/bookDetail'));
 
 // 2. Plugins
 // app.use({});
