@@ -6,17 +6,19 @@ export default {
     list: [],
   },
   reducers: {
-    save(state, payload) {
+    save(state, { payload }) {
+      console.log(payload);
       return { ...state, ...payload };
     },
   },
   effects: {
-    effects: {
-      *fetch({ query }, { call, put }) {
-        console.log(query);
-        const { data } = yield call(bookStoreService.fetch, { page });
-        yield put({ type: 'save', payload: { data } });
-      },
+    *fetch({ query }, { call, put }) {
+      console.log(query);
+      const { data } = yield call(bookStoreService.fetch, { query });
+      console.log(data);
+      if (data.ok) {
+        yield put({ type: 'save', payload: { list: data.books } });
+      }
     },
   },
   subscriptions: {

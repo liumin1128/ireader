@@ -1,5 +1,9 @@
 import request from '../utils/request';
+import { urlEncode } from '../utils/common.js';
 
-export function fetch() {
-  return request('/book/fuzzy-search?query=凡人修仙传&start=0&limit=10');
+export function fetch({ query }) {
+  const params = urlEncode(query);
+  console.log(params);
+  return request(`/api/book/fuzzy-search?${params}`);
+//   return request('/api/users');
 }

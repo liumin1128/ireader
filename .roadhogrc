@@ -5,6 +5,11 @@
       "target": "http://api.zhuishushenqi.com/",
       "changeOrigin": true,
       "pathRewrite": { "^/api" : "" }
+    },
+    "/chapter": {
+      "target": "http://chapter2.zhuishushenqi.com/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
     }
   },
   "env": {
