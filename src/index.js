@@ -1,4 +1,5 @@
 import dva from 'dva';
+import createLoading from 'dva-loading';
 import './index.css';
 
 // 1. Initialize
@@ -8,7 +9,7 @@ app.model(require('./models/bookStore'));
 
 // 2. Plugins
 // app.use({});
-
+app.use(createLoading());
 // 3. Model
 // app.model(require('./models/example'));
 
