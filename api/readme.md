@@ -15,7 +15,7 @@
 }
 ```
 
-### 查询书籍列表：`book/fuzzy-search`
+### 查询书籍列表：`book/fuzzy-search` GET
 
 params
 
@@ -67,3 +67,50 @@ result
     "ok": true
 }
 ```
+
+### 查询书籍详情：`book/ID` GET
+
+params 无
+
+example
+
+```
+/book/508662b8d7a545903b000027
+```
+
+result
+
+```
+{
+    "_id": "508662b8d7a545903b000027",
+    "author": "忘语",
+    "cover": "/agent/http://image.cmfu.com/books/107580/107580.jpg",
+    "creater": "iPhone 4",
+    "longIntro": "一个普通山村小子，偶然下进入到当地江湖小门派，成了一名记名弟子。他以这样身份，如何在门派中立足,如何以平庸的资质进入到修仙者的行列，从而笑傲三界之中！",
+    "title": "凡人修仙传",
+    "cat": "幻想修仙",
+    "majorCate": "仙侠",
+    "minorCate": "幻想修仙",
+    "_le": false,
+    "allowMonthly": false,
+    "allowVoucher": true,
+    "allowBeanVoucher": false,
+    "hasCp": true,
+    "postCount": 2243,
+    "latelyFollower": 16628,
+    "followerCount": 38497,
+    "wordCount": 7647986,
+    "serializeWordCount": 0,
+    "retentionRatio": "60.12",
+    "updated": "2017-02-16T06:02:34.819Z",
+    "isSerial": false,
+    "chaptersCount": 2451,
+    "lastChapter": "第十一卷 真仙降临 第两千四百四十六章 飞升仙界(大结局）",
+    "gender": ["male"],
+    "tags": ["热血", "法宝", "架空", "扮猪吃虎", "奇遇", "凡人", "修炼", "修仙", "仙侠"],
+    "donate": false,
+    "copyright": "阅文集团正版授权"
+}
+
+```
+

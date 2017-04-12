@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './Book.css';
+import Detail from '../components/BookDetail/Detail';
 
 function Book({ detail }) {
   return (
     <div className={styles.normal}>
-      {detail && detail.title}
+      <Detail detail={detail} />
     </div>
   );
 }

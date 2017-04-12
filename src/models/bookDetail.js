@@ -1,4 +1,5 @@
 import * as bookDetailService from '../services/bookDetail.js';
+import { formatBookDetail } from '../utils/format.js';
 
 export default {
   namespace: 'bookDetail',
@@ -14,7 +15,7 @@ export default {
     *getDetail({ query }, { call, put }) {
       const { data } = yield call(bookDetailService.getDetail, { query });
       if (data) {
-        yield put({ type: 'save', payload: { detail: data } });
+        yield put({ type: 'save', payload: { detail: formatBookDetail(data) } });
       }
     },
   },
