@@ -31,7 +31,9 @@ class Reader extends Component {
     const { dispatch, chapter, loading } = this.props;
     return (
       <div className={styles.normal}>
-        <ReaderComponent dispatch={dispatch} chapter={chapter} loading={loading} />
+        {
+          loading ? 'loading' : <ReaderComponent dispatch={dispatch} chapter={chapter} loading={loading} />
+        }
         <div className={styles.foot}>
           <RaisedButton label="上一章" onClick={this.prev} />
           <RaisedButton label="下一章" onClick={this.next} />
