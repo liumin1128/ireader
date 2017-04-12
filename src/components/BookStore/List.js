@@ -5,10 +5,9 @@ import styles from './List.less';
 
 function List({ dispatch, list }) {
   function gotoUrl(id) {
-    console.log(id);
     dispatch(routerRedux.push({
-      pathname: '/',
-      query: { page: 1 },
+      pathname: '/book',
+      query: { id },
     }));
   }
   return (
