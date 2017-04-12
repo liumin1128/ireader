@@ -23,7 +23,11 @@ export default {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         if (pathname === '/bookstore') {
-          dispatch({ type: 'getList', query });
+          console.log(query.query);
+          if (query.query) {
+            console.log('检测到参数，正在搜索');
+            dispatch({ type: 'getList', query });
+          }
         }
       });
     },
