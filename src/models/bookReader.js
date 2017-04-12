@@ -45,22 +45,35 @@ export default {
       const { bookReader } = yield select();
       const list = bookReader.chapterList.chapters;
       let current = bookReader.current;
-      if (payload.type === 'next') {
-        if (current === list.length) {
-          console.log('已经是最后一章了！');
-          swal('已经是最后一章了!');
-          return;
-        } else {
-          current += 1;
-        }
-      } else if (payload.type === 'prev') {
-        if (current === 0) {
-          swal('已经是第一章了！');
-          console.log('已经是第一章了！');
-          return;
-        } else {
-          current -= 1;
-        }
+      switch (payload.type) {
+        case 'next':
+          if (current === list.length) {
+            swal('已经是最后一章了!');
+            return;
+          } else {
+            current += 1;
+          }
+          break;
+        case 'prev':
+          if (current === 0) {
+            swal('已经是第一章了！');
+            return;
+          } else {
+            current -= 1;
+          }
+          break;
+        case 'goto':
+          if (current === payload.obj) {
+            return;
+          } else if (payload.obj > list.length || payload.obj < 0) {
+            swal('喂喂，你想去哪啊，没有这章啦！');
+          } else {
+            current = payload.obj;
+          }
+          break;
+        default:
+          break;
+
       }
       window.document.body.scrollTop = 0;
       yield put({
