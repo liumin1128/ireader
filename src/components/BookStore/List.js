@@ -1,10 +1,12 @@
 import React from 'react';
 import styles from './List.css';
 
-function List() {
+function List({ list }) {
   return (
     <div className={styles.normal}>
-      Component: List
+      {list.map(i => <div>
+        <h1>{i.title}</h1>
+      </div>)}
     </div>
   );
 }

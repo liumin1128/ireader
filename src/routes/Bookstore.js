@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './Bookstore.css';
+import List from '../components/BookStore/List';
 
 function Bookstore({ list, loading }) {
   return (
     <div className={styles.normal}>
-      Route Component: Bookstore
+      <List list={list} />
     </div>
   );
 }
