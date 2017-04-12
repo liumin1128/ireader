@@ -32,10 +32,9 @@ class Reader extends Component {
     return (
       <div className={styles.normal}>
         <ReaderComponent dispatch={dispatch} chapter={chapter} loading={loading} />
-
         <div className={styles.foot}>
-          <RaisedButton label="上一章" onTouchTap={this.prev} />
-          <RaisedButton label="下一章" onTouchTap={this.next} />
+          <RaisedButton label="上一章" onClick={this.prev} />
+          <RaisedButton label="下一章" onClick={this.next} />
         </div>
       </div>
     );

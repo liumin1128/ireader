@@ -1,4 +1,5 @@
 import * as bookReaderService from '../services/bookReader.js';
+import swal from 'sweetalert';
 
 export default {
   namespace: 'bookReader',
@@ -47,18 +48,21 @@ export default {
       if (payload.type === 'next') {
         if (current === list.length) {
           console.log('已经是最后一章了！');
+          swal('已经是最后一章了!');
           return;
         } else {
           current += 1;
         }
       } else if (payload.type === 'prev') {
         if (current === 0) {
+          swal('已经是第一章了！');
           console.log('已经是第一章了！');
           return;
         } else {
           current -= 1;
         }
       }
+      window.document.body.scrollTop = 0;
       yield put({
         type: 'save',
         payload: { current },

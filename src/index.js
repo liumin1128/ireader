@@ -1,9 +1,11 @@
 import dva from 'dva';
 import createLoading from 'dva-loading';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import 'sweetalert/dist/sweetalert.css';
 import './index.css';
 
 injectTapEventPlugin();
+
 
 // 1. Initialize
 const app = dva();
