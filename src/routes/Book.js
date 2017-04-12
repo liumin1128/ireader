@@ -3,10 +3,10 @@ import { connect } from 'dva';
 import styles from './Book.css';
 import Detail from '../components/BookDetail/Detail';
 
-function Book({ detail }) {
+function Book({ detail, dispatch }) {
   return (
     <div className={styles.normal}>
-      <Detail detail={detail} />
+      <Detail detail={detail} dispatch={dispatch} />
     </div>
   );
 }

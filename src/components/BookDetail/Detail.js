@@ -1,7 +1,14 @@
 import React from 'react';
+import { routerRedux } from 'dva/router';
 import styles from './Detail.less';
 
-function Detail({ detail }) {
+function Detail({ dispatch, detail }) {
+  function gotoUrl(id) {
+    dispatch(routerRedux.push({
+      pathname: '/reader',
+      query: { id },
+    }));
+  }
   return (
     <div className={styles.normal}>
       <img src={detail.cover} alt="" />
@@ -26,7 +33,7 @@ function Detail({ detail }) {
       <div>
         追更
       </div>
-      <div>
+      <div onClick={gotoUrl.bind(this, detail._id)}>
         开始阅读
       </div>
     </div>
