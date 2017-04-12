@@ -11,9 +11,9 @@ function Book({ detail }) {
 }
 
 function mapStateToProps(state) {
-  const { detail } = state.bookStore;
+  const { detail } = state.bookDetail;
   return {
-    loading: state.loading.models.bookStore,
+    loading: state.loading.models.bookDetail,
     detail,
   };
 }

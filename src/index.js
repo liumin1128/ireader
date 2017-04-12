@@ -7,6 +7,8 @@ const app = dva();
 
 app.model(require('./models/bookStore'));
 
+app.model(require("./models/bookDetail"));
+
 // 2. Plugins
 // app.use({});
 app.use(createLoading());
