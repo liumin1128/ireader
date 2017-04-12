@@ -1,3 +1,4 @@
+// 对象转url
 export const urlEncode = (param) => {
   if (param === null) return '';
   let result = JSON.stringify(param);
@@ -6,3 +7,4 @@ export const urlEncode = (param) => {
   result = result.replace(/,/g, '&');
   return result;
 };
+

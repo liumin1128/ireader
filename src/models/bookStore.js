@@ -1,4 +1,5 @@
 import * as bookStoreService from '../services/bookStore.js';
+import { formatBookList } from '../utils/format.js';
 
 export default {
   namespace: 'bookStore',
@@ -14,7 +15,7 @@ export default {
     *fetch({ query }, { call, put }) {
       const { data } = yield call(bookStoreService.fetch, { query });
       if (data.ok) {
-        yield put({ type: 'save', payload: { list: data.books } });
+        yield put({ type: 'save', payload: { list: formatBookList(data.books) } });
       }
     },
   },

@@ -3,10 +3,10 @@ import { connect } from 'dva';
 import styles from './Bookstore.css';
 import List from '../components/BookStore/List';
 
-function Bookstore({ list, loading }) {
+function Bookstore({ list, loading, dispatch }) {
   return (
     <div className={styles.normal}>
-      <List list={list} />
+      <List list={list} dispatch={dispatch} />
     </div>
   );
 }
