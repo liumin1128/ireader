@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { routerRedux } from 'dva/router';
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 import styles from './Layout.less';
@@ -34,16 +37,22 @@ class Layout extends Component {
     this.showChapterList();
     this.showMenuHandler();
   }
+  back = () => {
+    this.props.dispatch(routerRedux.push({
+      pathname: '/',
+    }));
+  }
   render() {
     const { children, chapterList, current } = this.props;
     const { show, showChapterList } = this.state;
-
     return (
       <div>
         <div className={`${styles.header} ${show ? styles.headerhide : ''}`}>
           <AppBar
             title="Title"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
+            iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+            onLeftIconButtonTouchTap={this.back}
           />
         </div>
         <div className={styles.body} onClick={this.showMenuHandler}>
