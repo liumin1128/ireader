@@ -17,7 +17,7 @@ function List({ dispatch, list }) {
       {list.map(i =>
 
         <Card key={i._id} style={{ margin: '16px 0', position: 'relative', borderRadius: 0, minHeight: 121 }}>
-          <img className={styles.cover} src={i.cover} alt={i.title} />
+          <img className={styles.cover} src={i.cover} alt={i.title} onClick={gotoUrl.bind(this, i._id)} />
           <CardHeader
             title={i.title}
             subtitle={`${i.cat} | ${i.author}`}
