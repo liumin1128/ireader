@@ -6,9 +6,9 @@ import { routerRedux } from 'dva/router';
 import styles from './List.less';
 
 function List({ dispatch, list }) {
-  function gotoUrl(id) {
+  function gotoUrl(pathname, id) {
     dispatch(routerRedux.push({
-      pathname: '/book',
+      pathname,
       query: { id },
     }));
   }
@@ -17,7 +17,7 @@ function List({ dispatch, list }) {
       {list.map(i =>
 
         <Card key={i._id} style={{ margin: '16px 0', position: 'relative', borderRadius: 0, minHeight: 121 }}>
-          <img className={styles.cover} src={i.cover} alt={i.title} onClick={gotoUrl.bind(this, i._id)} />
+          <img className={styles.cover} src={i.cover} alt={i.title} onClick={gotoUrl.bind(this, '/book', i._id)} />
           <CardHeader
             title={i.title}
             subtitle={`${i.cat} | ${i.author}`}
@@ -31,8 +31,8 @@ function List({ dispatch, list }) {
           <CardText expandable style={{ color: '#515151', transition: '1s', marginTop: 16, paddingBottom: 0 }}>
             {i.shortIntro}
             <CardActions style={{ paddingRight: 0, display: 'flex', justifyContent: 'flex-end' }}>
-              <RaisedButton label="查看详情" onClick={gotoUrl.bind(this, i._id)} primary />
-              <RaisedButton label="立即阅读" secondary style={{ marginRight: 0, marginLeft: 8 }} />
+              <RaisedButton label="查看详情" onClick={gotoUrl.bind(this, '/book', i._id)} primary />
+              <RaisedButton label="立即阅读" onClick={gotoUrl.bind(this, '/reader', i._id)} secondary style={{ marginRight: 0, marginLeft: 8 }} />
             </CardActions>
           </CardText>
         </Card>,
