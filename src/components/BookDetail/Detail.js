@@ -21,6 +21,16 @@ function Detail({ dispatch, detail }) {
       pathname: '/',
     }));
   }
+  function putBookShelf() {
+    dispatch({
+      type: 'bookShelf/put',
+      payload: {
+        id: detail._id,
+        cover: detail.cover,
+        title: detail.title,
+      },
+    });
+  }
   return (
     <div>
       <div className={styles.header}>
@@ -72,7 +82,7 @@ function Detail({ dispatch, detail }) {
         </div>
       </div>
       <div className={styles.foot}>
-        <RaisedButton style={{ width: '45%', borderRadius: 0 }} label="追更" />
+        <RaisedButton onClick={putBookShelf} style={{ width: '45%', borderRadius: 0 }} label="追更" />
         <RaisedButton onClick={gotoUrl.bind(this, detail._id)} style={{ width: '45%', borderRadius: 0 }} label="开始阅读" primary />
       </div>
     </div>

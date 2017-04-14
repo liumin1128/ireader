@@ -12,6 +12,8 @@ const app = dva();
 
 app.model(require('./models/bookStore'));
 
+app.model(require("./models/bookShelf"));
+
 app.model(require('./models/bookReader'));
 
 app.model(require('./models/bookDetail'));

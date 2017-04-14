@@ -5,8 +5,9 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import styles from './IndexPage.less';
+import BookShelf from '../components/BookShelf/BookShelf';
 
-function IndexPage({ dispatch }) {
+function IndexPage({ dispatch, list }) {
   function gotoUrl() {
     dispatch(routerRedux.push({
       pathname: '/bookstore',
@@ -23,15 +24,15 @@ function IndexPage({ dispatch }) {
         }
         titleStyle={{ textAlign: 'center' }}
       />
-      index
+      <BookShelf list={list} />
     </div>
   );
 }
 
 function mapStateToProps(state) {
-  const { list } = state.bookStore;
+  const { list } = state.bookShelf;
   return {
-    loading: state.loading.models.bookStore,
+    loading: state.loading.models.bookShelf,
     list,
   };
 }
