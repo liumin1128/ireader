@@ -1,5 +1,6 @@
-import * as bookReaderService from '../services/bookReader.js';
 import swal from 'sweetalert';
+import * as bookReaderService from '../services/bookReader.js';
+import { formatChapter } from '../utils/format.js';
 
 export default {
   namespace: 'bookReader',
@@ -16,11 +17,14 @@ export default {
   },
   effects: {
     *getSource({ query }, { call, put }) {
+      console.log(query);
       const { data } = yield call(bookReaderService.getSource, { query });
+      console.log('书源');
+      console.log(data);
       if (data) {
         yield put({ type: 'save', payload: { bookSource: data } });
         yield put({
-          type: 'getChapterList', query: { id: data[1]._id },
+          type: 'getChapterList', query: { id: data[0]._id },
         });
       }
     },
@@ -28,6 +32,8 @@ export default {
       const { bookReader } = yield select();
       const current = bookReader.current || 0;
       const { data } = yield call(bookReaderService.getChapterList, { query });
+      console.log('章节列表');
+      console.log(data);
       if (data) {
         yield put({ type: 'save', payload: { chapterList: data } });
         yield put({
@@ -37,8 +43,12 @@ export default {
     },
     *getChapter({ query }, { call, put }) {
       const { data } = yield call(bookReaderService.getChapter, { query });
-      if (data.ok) {
-        yield put({ type: 'save', payload: { chapter: data.chapter } });
+      console.log('章节');
+      console.log(data);
+      if (data) {
+        yield put({ type: 'save', payload: { chapter: formatChapter(data.chapter) } });
+      } else {
+        swal('啊哦，本书已下架，换源再试试吧');
       }
     },
     *changeChapter({ payload }, { call, put, select }) {

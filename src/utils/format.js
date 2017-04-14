@@ -28,3 +28,12 @@ export const formatBookDetail = (data) => {
     cover: getCover(i.cover),
   };
 };
+
+// 处理章节，这里要注意，优质书源已加密，建议不要使用
+export const formatChapter = (data) => {
+  const i = data;
+  return {
+    ...i,
+    body: i.cpContent ? i.cpContent : i.body,
+  };
+};
