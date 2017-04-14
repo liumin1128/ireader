@@ -6,6 +6,7 @@ import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
+import Loading from './Loading';
 import styles from './Layout.less';
 
 class Layout extends Component {
@@ -43,20 +44,22 @@ class Layout extends Component {
     }));
   }
   render() {
-    const { children, chapterList, current } = this.props;
+    const { children, chapterList, book, status } = this.props;
     const { show, showChapterList } = this.state;
     return (
       <div>
         <div className={`${styles.header} ${show ? styles.headerhide : ''}`}>
           <AppBar
-            title="Title"
+            title={book.title + status}
             iconClassNameRight="muidocs-icon-navigation-expand-more"
             iconElementLeft={<IconButton><NavigationClose /></IconButton>}
             onLeftIconButtonTouchTap={this.back}
           />
         </div>
         <div className={styles.body} onClick={this.showMenuHandler}>
-          {children}
+          {status === 'loading' && <Loading />}
+          {status === 'error' && <h1>error</h1>}
+          {status === 'success' && children}
         </div>
         <div className={`${styles.foot} ${show ? styles.foothide : ''}`}>
           <Tabs>
@@ -94,7 +97,7 @@ class Layout extends Component {
               <p
                 key={i.link}
                 onClick={this.changeChapterhandler.bind(this, index)}
-                style={current === index ? { color: 'red' } : {}}
+                style={book.current === index ? { color: 'red' } : {}}
               >
                 {i.title}
               </p>,

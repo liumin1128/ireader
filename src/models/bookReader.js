@@ -11,6 +11,7 @@ export default {
     chapterList: [],
     bookSource: [],
     book: {},
+    status: 'loading',
   },
   reducers: {
     save(state, { payload }) {
@@ -45,6 +46,11 @@ export default {
         yield put({
           type: 'getChapter', query: { link: data.chapters[current].link },
         });
+      } else {
+        swal('未获取到章节列表，正在重试！');
+        yield put({
+          type: 'getChapterList', query,
+        });
       }
     },
     *getChapter({ query }, { call, put }) {
@@ -52,7 +58,7 @@ export default {
       console.log('章节');
       console.log(data);
       if (data) {
-        yield put({ type: 'save', payload: { chapter: formatChapter(data.chapter) } });
+        yield put({ type: 'save', payload: { chapter: formatChapter(data.chapter), status: 'success' } });
       } else {
         swal('啊哦，本书已下架，换源再试试吧');
       }
