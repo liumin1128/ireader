@@ -1,5 +1,7 @@
 import swal from 'sweetalert';
 import * as bookReaderService from '../services/bookReader.js';
+import * as bookShelfService from '../services/bookShelf.js';
+
 import { formatChapter } from '../utils/format.js';
 
 export default {
@@ -8,7 +10,7 @@ export default {
     chapter: {},
     chapterList: [],
     bookSource: [],
-    current: 0,
+    book: {},
   },
   reducers: {
     save(state, { payload }) {
@@ -17,20 +19,24 @@ export default {
   },
   effects: {
     *getSource({ query }, { call, put }) {
+      console.log('源参数');
       console.log(query);
-      const { data } = yield call(bookReaderService.getSource, { query });
+      console.log('从书架获取书籍信息');
+      const book = yield call(bookShelfService.getBookById, { query });
+      console.log(book);
+      const { data: bookSource } = yield call(bookReaderService.getSource, { query });
       console.log('书源');
-      console.log(data);
-      if (data) {
-        yield put({ type: 'save', payload: { bookSource: data } });
+      console.log(bookSource);
+      if (bookSource) {
+        yield put({ type: 'save', payload: { bookSource, book } });
         yield put({
-          type: 'getChapterList', query: { id: data[0]._id },
+          type: 'getChapterList', query: { id: bookSource[0]._id },
         });
       }
     },
     *getChapterList({ query }, { call, put, select }) {
       const { bookReader } = yield select();
-      const current = bookReader.current || 0;
+      const current = bookReader.book.current || 0;
       const { data } = yield call(bookReaderService.getChapterList, { query });
       console.log('章节列表');
       console.log(data);
@@ -54,7 +60,8 @@ export default {
     *changeChapter({ payload }, { call, put, select }) {
       const { bookReader } = yield select();
       const list = bookReader.chapterList.chapters;
-      let current = bookReader.current;
+      const book = bookReader.book;
+      let current = book.current || 0;
       switch (payload.type) {
         case 'next':
           if (current === list.length) {
@@ -86,9 +93,11 @@ export default {
 
       }
       window.document.body.scrollTop = 0;
+      book.current = current;
+      yield call(bookShelfService.save, { payload: { ...book } });
       yield put({
         type: 'save',
-        payload: { current },
+        payload: { book },
       });
       yield put({
         type: 'getChapter', query: { link: list[current].link },
