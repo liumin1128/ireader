@@ -21,10 +21,29 @@ function checkStatus(response) {
  * @param  {object} [options] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
-export default function request(url, options) {
+// export default function request(url, options) {
+//   return fetch(url, options)
+//     .then(checkStatus)
+//     .then(parseJSON)
+//     .then(data => ({ data }))
+//     .catch(err => ({ err }));
+// }
+
+function request1(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
     .then(data => ({ data }))
     .catch(err => ({ err }));
+}
+
+const oldRequest = request1; // 拦截原始的fetch方法
+export default function request(url, options) { // 定义新的fetch方法，封装原有的fetch方法
+  const fetchPromise = oldRequest(url, options);
+  const timeoutPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({});
+    }, 5000);
+  });
+  return Promise.race([fetchPromise, timeoutPromise]);
 }

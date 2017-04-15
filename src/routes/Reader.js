@@ -31,15 +31,19 @@ class Reader extends Component {
   render() {
     const { dispatch, chapter, chapterList, book, loading, status } = this.props;
     return (
-      <Layout className={styles.normal} dispatch={dispatch} chapterList={chapterList} book={book} status={status}>
-        {
-          loading ? 'loading' : <ReaderComponent dispatch={dispatch} chapter={chapter} status={status} loading={loading} />
-        }
+      <div>
+        <Layout className={styles.normal} dispatch={dispatch} chapterList={chapterList} book={book} status={status}>
+          {
+              loading ? 'loading' : <ReaderComponent dispatch={dispatch} chapter={chapter} status={status} loading={loading} />
+            }
+
+        </Layout>
         <div className={styles.foot}>
           <RaisedButton label="上一章" onClick={this.prev} />
           <RaisedButton label="下一章" onClick={this.next} />
         </div>
-      </Layout>
+      </div>
+
     );
   }
 }

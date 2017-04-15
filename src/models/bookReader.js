@@ -20,6 +20,7 @@ export default {
   },
   effects: {
     *getSource({ query }, { call, put }) {
+      yield put({ type: 'save', payload: { status: 'loading' } });
       console.log('源参数');
       console.log(query);
       console.log('从书架获取书籍信息');
@@ -33,6 +34,10 @@ export default {
         yield put({
           type: 'getChapterList', query: { id: bookSource[0]._id },
         });
+      } else {
+        console.log('获取源失败，正在重试！');
+        window.location.reload();
+        // yield put({ type: 'getSource', query });
       }
     },
     *getChapterList({ query }, { call, put, select }) {
@@ -47,10 +52,9 @@ export default {
           type: 'getChapter', query: { link: data.chapters[current].link },
         });
       } else {
-        swal('未获取到章节列表，正在重试！');
-        yield put({
-          type: 'getChapterList', query,
-        });
+        console.log('未获取到章节列表，正在重试！');
+        window.location.reload();
+        // yield put({ type: 'getChapterList', query });
       }
     },
     *getChapter({ query }, { call, put }) {
@@ -64,6 +68,7 @@ export default {
       }
     },
     *changeChapter({ payload }, { call, put, select }) {
+      yield put({ type: 'save', payload: { status: 'loading' } });
       const { bookReader } = yield select();
       const list = bookReader.chapterList.chapters;
       const book = bookReader.book;
