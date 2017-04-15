@@ -38,7 +38,7 @@ class Reader extends Component {
             }
 
         </Layout>
-        <div className={styles.foot}>
+        <div className={`${styles.foot} ${status === 'loading' && styles.loading}`}>
           <RaisedButton label="上一章" onClick={this.prev} />
           <RaisedButton label="下一章" onClick={this.next} />
         </div>

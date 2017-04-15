@@ -43,7 +43,7 @@ export default function request(url, options) { // 定义新的fetch方法，封
   const timeoutPromise = new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({});
-    }, 5000);
+    }, 3000);
   });
   return Promise.race([fetchPromise, timeoutPromise]);
 }
