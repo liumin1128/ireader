@@ -29,14 +29,11 @@ class Reader extends Component {
     });
   }
   render() {
-    const { dispatch, chapter, chapterList, book, loading, status } = this.props;
+    const { dispatch, chapter, chapterList, book, loading, status, theme } = this.props;
     return (
       <div>
-        <Layout className={styles.normal} dispatch={dispatch} chapterList={chapterList} book={book} status={status}>
-          {
-              loading ? 'loading' : <ReaderComponent dispatch={dispatch} chapter={chapter} status={status} loading={loading} />
-            }
-
+        <Layout className={styles.normal} dispatch={dispatch} chapterList={chapterList} book={book} status={status} theme={theme}>
+          <ReaderComponent dispatch={dispatch} chapter={chapter} status={status} loading={loading} theme={theme} />
         </Layout>
         <div className={`${styles.foot} ${status === 'loading' && styles.loading}`}>
           <RaisedButton label="上一章" onClick={this.prev} />
@@ -49,13 +46,14 @@ class Reader extends Component {
 }
 
 function mapStateToProps(state) {
-  const { chapter, chapterList, book, status } = state.bookReader;
+  const { chapter, chapterList, book, status, theme } = state.bookReader;
   return {
     loading: state.loading.models.bookReader,
     chapter,
     chapterList,
     book,
     status,
+    theme,
   };
 }
 

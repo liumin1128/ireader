@@ -3,10 +3,12 @@ import * as bookReaderService from '../services/bookReader.js';
 import * as bookShelfService from '../services/bookShelf.js';
 
 import { formatChapter } from '../utils/format.js';
+import { defaultTheme } from '../utils/constant.js';
 
 export default {
   namespace: 'bookReader',
   state: {
+    theme: defaultTheme,
     chapter: {},
     chapterList: [],
     bookSource: [],
@@ -19,6 +21,11 @@ export default {
     },
   },
   effects: {
+    *initReader({}, { call, put }) {
+      const theme = yield call(bookReaderService.getTheme);
+      console.log(theme);
+      yield put({ type: 'save', payload: { theme } });
+    },
     *getSource({ query }, { call, put }) {
       yield put({ type: 'save', payload: { status: 'loading' } });
       console.log('源参数');
@@ -114,11 +121,20 @@ export default {
         type: 'getChapter', query: { link: list[current].link },
       });
     },
+    *setTheme({ payload }, { call, put, select }) {
+      console.log(payload);
+      const { bookReader } = yield select();
+      const theme = { ...bookReader.theme, ...payload };
+      console.log(theme);
+      yield put({ type: 'save', payload: { theme } });
+      yield call(bookReaderService.setTheme, { theme });
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
       return history.listen(({ pathname, query }) => {
         if (pathname === '/reader') {
+          dispatch({ type: 'initReader' });
           dispatch({ type: 'getSource', query });
         }
       });
