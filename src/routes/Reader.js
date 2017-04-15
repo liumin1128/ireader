@@ -35,7 +35,7 @@ class Reader extends Component {
         <Layout className={styles.normal} dispatch={dispatch} chapterList={chapterList} book={book} status={status} theme={theme}>
           <ReaderComponent dispatch={dispatch} chapter={chapter} status={status} loading={loading} theme={theme} />
         </Layout>
-        <div className={`${styles.foot} ${status === 'loading' && styles.loading}`}>
+        <div style={{ background: theme.background }} className={`${styles.foot} ${status === 'loading' && styles.loading}`}>
           <RaisedButton label="上一章" onClick={this.prev} />
           <RaisedButton label="下一章" onClick={this.next} />
         </div>

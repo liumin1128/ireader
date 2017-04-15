@@ -16,7 +16,7 @@ function Reader({ dispatch, chapter, loading, status, theme }) {
           status="loading"
         />
         : <div className={styles.body}>
-          <div className={styles.title}>{`${chapter.title} ${status}`}</div>
+          <div className={styles.title} style={{ background: theme.background }}>{`${chapter.title} ${status}`}</div>
           {chapter.isVip && <p style={{ margin: 0, textAlign: 'center' }}><br /><br /><br /><br /><br /><br />当前章节Vip专属，请换源重试！<br /><br />安装最新版追书神器，支持正版！<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /></p>}
           {chapter.body && !chapter.isVip && chapter.body.split('\n').map((i, index) =>
             <p key={index}>{i}</p>,
