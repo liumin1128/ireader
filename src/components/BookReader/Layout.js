@@ -6,7 +6,6 @@ import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import Sunny from 'material-ui/svg-icons/image/wb-sunny';
-import LineSpacing from 'material-ui/svg-icons/editor/format-line-spacing';
 import FontSizeIcon from 'material-ui/svg-icons/editor/format-size';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
@@ -20,10 +19,26 @@ class Layout extends Component {
     this.state = {
       show: true,
       showChapterList: false,
-      showSettings: true,
+      showSettings: false,
       brightness: 1,
-      theme: 0,
+      theme: 1,
     };
+  }
+  setTheme = (theme) => {
+    this.props.dispatch({
+      type: 'bookReader/setTheme',
+      payload: { ...theme },
+    });
+  }
+  setFontSize = (type) => {
+    let fontSize = this.props.theme.fontSize || 16;
+    if (type === 'reduce') {
+      fontSize += 2;
+    }
+    if (type === 'increase') {
+      fontSize -= 2;
+    }
+    this.setTheme({ fontSize });
   }
   showOrCloseHandler = (obj) => {
     this.setState({
@@ -43,22 +58,6 @@ class Layout extends Component {
       pathname: '/',
     }));
   }
-  setTheme = (theme) => {
-    this.props.dispatch({
-      type: 'bookReader/setTheme',
-      payload: { ...theme },
-    });
-  }
-  setFontSize = (type) => {
-    let fontSize = this.props.theme.fontSize || 16;
-    if (type === 'reduce') {
-      fontSize += 2;
-    }
-    if (type === 'increase') {
-      fontSize -= 2;
-    }
-    this.setTheme({ fontSize });
-  }
   render() {
     const { children, chapterList, book, status } = this.props;
     const { show, showChapterList, showSettings, brightness, theme } = this.state;
@@ -73,7 +72,7 @@ class Layout extends Component {
           />
         </div>
         <div className={styles.body}>
-          {status === 'loading' && <Loading />}
+          {status === 'loading' && <Loading theme={this.props.theme} />}
           {status === 'error' && <h1>error</h1>}
           {status === 'success' && children}
         </div>

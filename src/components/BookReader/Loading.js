@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './Loading.less';
 
-function Loading() {
+function Loading({ theme }) {
   return (
-    <div className={styles.normal}>
+    <div className={styles.normal} style={{ background: theme.background }}>
       <span>加载中...</span>
     </div>
   );
