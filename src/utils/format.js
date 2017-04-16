@@ -23,7 +23,6 @@ export const formatBookList = (data) => {
 // 处理书籍详情，这里仅将封面转换为真实url
 export const formatBookDetail = (data) => {
   const i = data;
-  console.log(data);
   return {
     ...i,
     cover: getCover(i.cover),

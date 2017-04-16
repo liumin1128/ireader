@@ -103,12 +103,10 @@ export default {
     },
     *getChapter({ query }, { call, put }) {
       const { data } = yield call(bookReaderService.getChapter, { query });
-      console.log('章节');
-      console.log(data);
       if (data) {
         yield put({ type: 'save', payload: { chapter: formatChapter(data.chapter), status: 'success' } });
       } else {
-        swal('啊哦，本书已下架，换源再试试吧');
+        window.location.reload();
       }
     },
     *changeChapter({ payload }, { call, put, select }) {
@@ -159,25 +157,38 @@ export default {
       });
     },
     *changeSource({ payload }, { call, put, select }) {
-      console.log(payload);
       yield put({ type: 'save', payload: { status: 'loading' } });
       const { bookReader } = yield select();
+      // 获取当前书籍信息
+      // 获取当前源信息
       const book = bookReader.book;
       const list = bookReader.bookSource;
+
+      // 初始化源编号
       let currentSource = book.currentSource || 0;
       currentSource = parseInt(payload.index, 0);
+
+      // 换源可能导致页面刷新，将滚动条置顶
       window.document.body.scrollTop = 0;
+
+      // 保存源编号
       book.currentSource = currentSource;
-      console.log(book);
+
+      // 保存书籍信息到本地
       yield call(bookShelfService.save, { payload: { ...book } });
+
+      // 保存书籍信息到redux
       yield put({
         type: 'save',
         payload: { book },
       });
-      console.log(list);
+
+      // 切换源，并重新获取章节列表
       yield put({
         type: 'getChapterList', query: { id: list[currentSource]._id },
       });
+
+      // 将跳转回阅读页
       window.history.back();
     },
     *setTheme({ payload }, { call, put, select }) {

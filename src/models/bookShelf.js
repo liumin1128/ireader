@@ -26,7 +26,6 @@ export default {
     },
     *putAndRead({ payload }, { call, put }) {
       const { data } = yield call(bookDetailService.getDetail, { query: payload });
-      console.log(data);
       if (!data) { window.location.reload(); }
       const detail = formatBookDetail(data);
       const newBook = {
