@@ -34,8 +34,8 @@ class Bookstore extends Component {
       <div className={styles.normal}>
         <AppBar
           title="搜索"
-          titleStyle={{ textAlign: 'center' }}
           iconElementLeft={<Back />}
+          titleStyle={{ textAlign: 'center' }}
           iconElementRight={<IconButton />}
         />
         <div className={styles.search}>

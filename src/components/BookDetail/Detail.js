@@ -29,8 +29,9 @@ function Detail({ dispatch, detail, loading }) {
   return (
     <div>
       <AppBar
-        title="Title"
-        style={{ background: loading ? 'rgba(0,0,0,0.1)' : 'none' }}
+        // title={`${loading ? '' : detail.title}`}
+        style={!loading ? { background: 'none' } : { fontSize: 16 }}
+        titleStyle={{ textAlign: 'center' }}
         zDepth={0}
         iconClassNameRight="muidocs-icon-navigation-expand-more"
         iconElementLeft={<Back />}
