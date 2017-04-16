@@ -24,11 +24,9 @@ export default {
   },
   effects: {
     *initReader({}, { call, put }) {
-      console.log('初始化阅读器,检查是否存在自定义主题');
+      // 初始化阅读器,检查是否存在自定义主题
       const theme = yield call(bookReaderService.getTheme);
       if (theme) {
-        console.log('存在自定义主题，加载自定义主题');
-        console.log(theme);
         yield put({ type: 'save', payload: { theme } });
       }
     },
@@ -192,10 +190,8 @@ export default {
       window.history.back();
     },
     *setTheme({ payload }, { call, put, select }) {
-      console.log(payload);
       const { bookReader } = yield select();
       const theme = { ...bookReader.theme, ...payload };
-      console.log(theme);
       yield put({ type: 'save', payload: { theme } });
       yield call(bookReaderService.setTheme, { theme });
     },

@@ -8,15 +8,12 @@ import FlatButton from 'material-ui/FlatButton';
 import Sunny from 'material-ui/svg-icons/image/wb-sunny';
 import FontSizeIcon from 'material-ui/svg-icons/editor/format-size';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import LockIcon from 'material-ui/svg-icons/action/lock';
-import LeftIcon from 'material-ui/svg-icons/hardware/keyboard-backspace';
 import Moon from 'material-ui/svg-icons/image/brightness-3';
 import Loading from './Loading';
-
+import Back from '../../components/Layout/Back';
 import styles from './Layout.less';
 import { themes } from '../../utils/constant.js';
 
@@ -49,7 +46,7 @@ class Layout extends Component {
   }
   showOrCloseHandler = (obj) => {
     this.setState({
-      show: this.state[obj],
+      show: !this.state[obj],
       [obj]: !this.state[obj],
     });
   }
@@ -71,18 +68,14 @@ class Layout extends Component {
     }));
   }
   render() {
-    const items = [];
-    for (let i = 0; i < 100; i++) {
-      items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`} />);
-    }
     const { children, chapterList, book, status } = this.props;
     const { show, showChapterList, showSettings, brightness, theme } = this.state;
     return (
       <div>
-        <div className={`${styles.header} ${show ? styles.headerhide : ''}`}>
+        <div className={`${styles.header} ${show ? '' : styles.headerhide}`}>
           <AppBar
             title={book.title}
-            iconElementLeft={<IconButton><LeftIcon /></IconButton>}
+            iconElementLeft={<Back />}
             iconElementRight={<FlatButton onClick={this.goToUrl.bind(this, 'source')} style={{ margin: 0 }} label="换源" />}
             onLeftIconButtonTouchTap={this.back}
           />
@@ -92,7 +85,7 @@ class Layout extends Component {
           {status === 'error' && <h1>error</h1>}
           {status === 'success' && children}
         </div>
-        <div className={`${styles.foot} ${show ? styles.foothide : ''}`}>
+        <div className={`${styles.foot} ${show ? '' : styles.foothide}`}>
           <Tabs>
             <Tab
               icon={<Moon />}
@@ -163,13 +156,6 @@ class Layout extends Component {
           <div className={styles.themeSelect}>
             {themes.map((i, index) => <span onClick={this.setTheme.bind(this, i)} className={theme === index && styles.active} key={i.background} style={{ ...i }} />)}
           </div>
-          <SelectField
-            value={this.state.value}
-            onChange={this.handleChange}
-            maxHeight={200}
-          >
-            {items}
-          </SelectField>
         </Dialog>
         <div className={styles.mask} style={{ opacity: (1 - brightness) }} onClick={this.showOrCloseHandler.bind(this, 'show')} />
       </div>
