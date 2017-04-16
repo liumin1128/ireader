@@ -8,15 +8,15 @@ app.use('/api', proxy({
   target: 'http://api.zhuishushenqi.com/',
   pathRewrite: { '^/api': '/' },
   changeOrigin: true,
-},
-));
+}));
 app.use('/chapter', proxy({
   target: 'http://chapter2.zhuishushenqi.com/',
   pathRewrite: { '^/chapter': '/chapter' },
   changeOrigin: true,
-},
-));
-app.get('/*', (req, res) => {
-  res.sendFile(`${__dirname}/dist/index.html`);
-});
+}));
+// app.get('/*', (req, res) => {
+//   res.sendFile(`${__dirname}/dist/index.html`);
+// });
+app.use('/', express.static(`${__dirname}/dist`));
 app.listen(8000);
+console.log('服务器8000');
