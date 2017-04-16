@@ -8,9 +8,9 @@ import FlatButton from 'material-ui/FlatButton';
 import Sunny from 'material-ui/svg-icons/image/wb-sunny';
 import FontSizeIcon from 'material-ui/svg-icons/editor/format-size';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import LockIcon from 'material-ui/svg-icons/action/lock';
+import ListIcon from 'material-ui/svg-icons/action/view-list';
 import Moon from 'material-ui/svg-icons/image/brightness-3';
 import Loading from './Loading';
 import Back from '../../components/Layout/Back';
@@ -26,6 +26,7 @@ class Layout extends Component {
       showSettings: false,
       brightness: 1,
       theme: 1,
+      night: false,
     };
   }
   setTheme = (theme) => {
@@ -67,9 +68,24 @@ class Layout extends Component {
       pathname,
     }));
   }
+  setNight = () => {
+    console.log(this.state.night);
+    if (this.state.night) {
+      this.setTheme({
+        background: '#FAF9DE',
+        color: 'rgba(0,0,0,0.7)',
+      });
+    } else {
+      this.setTheme({
+        background: '#000',
+        color: 'rgba(255,255,255,0.5)',
+      });
+    }
+    this.setState({ night: !this.state.night });
+  }
   render() {
     const { children, chapterList, book, status } = this.props;
-    const { show, showChapterList, showSettings, brightness, theme } = this.state;
+    const { show, showChapterList, showSettings, brightness, theme, night } = this.state;
     return (
       <div>
         <div className={`${styles.header} ${show ? '' : styles.headerhide}`}>
@@ -88,23 +104,23 @@ class Layout extends Component {
         <div className={`${styles.foot} ${show ? '' : styles.foothide}`}>
           <Tabs>
             <Tab
-              icon={<Moon />}
-              label="夜间"
-              onClick={this.setTheme.bind(this, { background: '#000', color: 'rgba(255,255,255,0.5)' })}
+              icon={night ? <Sunny /> : <Moon />}
+              label={night ? '白天' : '夜间'}
+              onClick={this.setNight}
             />
-            <Tab
+            {/* <Tab
               icon={<MapsPersonPin />}
               label="反馈"
-            />
+            />*/}
             <Tab
-              icon={<MapsPersonPin />}
+              icon={<ListIcon />}
               label="目录"
               onClick={this.showOrCloseHandler.bind(this, 'showChapterList')}
             />
-            <Tab
+            {/* <Tab
               icon={<MapsPersonPin />}
               label="存缓"
-            />
+            />*/}
             <Tab
               icon={<SettingsIcon />}
               label="设置"
@@ -123,7 +139,7 @@ class Layout extends Component {
               <p
                 key={i.link}
                 onClick={this.changeChapterhandler.bind(this, index)}
-                style={book.current === index ? { color: 'red' } : {}}
+                style={(book.currentChapter || 0) === index ? { color: 'red' } : {}}
               >
                 {i.title}
                 {i.isVip && <LockIcon style={{ float: 'right', width: 14, color: '#789' }} />}
