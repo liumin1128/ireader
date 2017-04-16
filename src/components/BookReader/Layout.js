@@ -90,6 +90,7 @@ class Layout extends Component {
             <Tab
               icon={<Moon />}
               label="夜间"
+              onClick={this.setTheme.bind(this, { background: '#000', color: 'rgba(255,255,255,0.5)' })}
             />
             <Tab
               icon={<MapsPersonPin />}

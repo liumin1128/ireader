@@ -47,6 +47,7 @@ export default {
         bookSource = data;
         // 更新书籍信息
         book.bookSource = data;
+        book.currentSource = currentSource;
         // 将更新后的书籍信息存好
         yield call(bookShelfService.save, { payload: { ...book } });
       } else {

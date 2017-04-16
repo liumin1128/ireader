@@ -3,8 +3,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import AppBar from 'material-ui/AppBar';
 import { List, ListItem } from 'material-ui/List';
-import IconButton from 'material-ui/IconButton';
-import LeftIcon from 'material-ui/svg-icons/hardware/keyboard-backspace';
+import Back from '../components/Layout/Back';
 import timeago from 'timeago.js';
 import styles from './Source.less';
 
@@ -17,18 +16,13 @@ function Source({ dispatch, bookSource, book }) {
       payload: { index },
     });
   }
-  function back() {
-    dispatch(routerRedux.push({
-      pathname: '/',
-    }));
-  }
   return (
     <div className={styles.normal}>
       <AppBar
         title="切换书源"
         iconClassNameRight="muidocs-icon-navigation-expand-more"
-        iconElementLeft={<IconButton><LeftIcon /></IconButton>}
-        onLeftIconButtonTouchTap={back}
+        iconElementLeft={<Back />}
+
       />
       <List>
         {
@@ -36,7 +30,7 @@ function Source({ dispatch, bookSource, book }) {
             <ListItem
               key={i._id}
               style={book.currentSource === index && { color: 'red' }}
-              primaryText={book.currentSource === index ? `当前书源：${i.name}` : i.name}
+              primaryText={(book.currentSource || 0) === index ? `当前书源：${i.name}` : i.name}
               onClick={changeSource.bind(this, index)}
               secondaryText={`${timeagoInstance.format(i.updated, 'zh_CN')}: ${i.lastChapter}`}
             />,
