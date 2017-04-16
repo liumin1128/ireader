@@ -5,11 +5,10 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import TextField from 'material-ui/TextField';
 import SearchIcon from 'material-ui/svg-icons/action/search';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
 import styles from './Bookstore.less';
 import List from '../components/BookStore/List';
 import Back from '../components/Layout/Back.js';
-
+import Loading from '../components/Layout/Loading.js';
 
 class Bookstore extends Component {
   constructor(props) {
@@ -49,14 +48,7 @@ class Bookstore extends Component {
             <SearchIcon color="rgb(0, 188, 212)" />
           </IconButton>
         </div>
-        <div style={{ display: loading ? 'block' : 'none' }} className={styles.loading}>
-          <RefreshIndicator
-            size={40}
-            left={0}
-            top={0}
-            status="loading"
-          />
-        </div>
+        <Loading loading={loading} />
 
         <List list={list} dispatch={dispatch} />
       </div>
