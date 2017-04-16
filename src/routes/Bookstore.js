@@ -3,11 +3,13 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import SearchIcon from 'material-ui/svg-icons/action/search';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 import styles from './Bookstore.less';
 import List from '../components/BookStore/List';
+import Back from '../components/Layout/Back.js';
+
 
 class Bookstore extends Component {
   constructor(props) {
@@ -18,7 +20,6 @@ class Bookstore extends Component {
   }
   search = () => {
     const query = this.queryInput.input.value;
-    console.log(query);
     if (query) {
       this.props.dispatch(routerRedux.push({
         pathname: '/bookstore',
@@ -28,21 +29,15 @@ class Bookstore extends Component {
       }));
     }
   }
-  back = () => {
-    this.props.dispatch(routerRedux.push({
-      pathname: '/',
-    }));
-  }
   render() {
-    const { list, dispatch } = this.props;
+    const { list, dispatch, loading } = this.props;
     return (
       <div className={styles.normal}>
         <AppBar
           title="搜索"
           titleStyle={{ textAlign: 'center' }}
-          iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+          iconElementLeft={<Back />}
           iconElementRight={<IconButton />}
-          onLeftIconButtonTouchTap={this.back}
         />
         <div className={styles.search}>
           <TextField
@@ -50,8 +45,19 @@ class Bookstore extends Component {
             style={{ width: '100%', height: 60 }}
             hintText="按书名，作者来搜索"
           />
-          <RaisedButton label="搜索" primary onTouchTap={this.search} />
+          <IconButton onTouchTap={this.search}>
+            <SearchIcon color="rgb(0, 188, 212)" />
+          </IconButton>
         </div>
+        <div style={{ display: loading ? 'block' : 'none' }} className={styles.loading}>
+          <RefreshIndicator
+            size={40}
+            left={0}
+            top={0}
+            status="loading"
+          />
+        </div>
+
         <List list={list} dispatch={dispatch} />
       </div>
     );

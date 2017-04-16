@@ -14,6 +14,7 @@ export default {
   effects: {
     *getList({ query }, { call, put }) {
       const { data } = yield call(bookStoreService.getList, { query });
+      console.log(data);
       if (data.ok) {
         yield put({ type: 'save', payload: { list: formatBookList(data.books) } });
       }

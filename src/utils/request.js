@@ -29,7 +29,7 @@ function checkStatus(response) {
 //     .catch(err => ({ err }));
 // }
 
-function request1(url, options) {
+export default function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)
@@ -37,8 +37,9 @@ function request1(url, options) {
     .catch(err => ({ err }));
 }
 
-const oldRequest = request1; // 拦截原始的fetch方法
-export default function request(url, options) { // 定义新的fetch方法，封装原有的fetch方法
+const oldRequest = request; // 拦截原始的fetch方法
+// 定义一个有timeout功能的request方法
+export function requestWithTimeout(url, options) { // 定义新的fetch方法，封装原有的fetch方法
   const fetchPromise = oldRequest(url, options);
   const timeoutPromise = new Promise((resolve, reject) => {
     setTimeout(() => {

@@ -29,8 +29,8 @@ function IndexPage({ dispatch, list }) {
       />
       <BookShelf dispatch={dispatch} list={list} />
       <div className={styles.add}>
-        <FloatingActionButton iconStyle={{ width: 70, height: 70 }} style={{ width: 70, height: 70 }} onClick={gotoUrl}>
-          <ContentAdd style={{ width: 40, height: 40, marginTop: 3 }} />
+        <FloatingActionButton onClick={gotoUrl}>
+          <ContentAdd />
         </FloatingActionButton>
       </div>
 

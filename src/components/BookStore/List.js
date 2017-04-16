@@ -28,7 +28,8 @@ function List({ dispatch, list }) {
           <CardHeader
             title={i.title}
             subtitle={`${i.cat} | ${i.author}`}
-            style={{ marginLeft: 88 }}
+            style={{ marginLeft: 88, paddingRight: 0 }}
+            showExpandableButton
             actAsExpander
           />
           <p className={styles.foot}>
