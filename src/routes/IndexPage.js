@@ -27,6 +27,9 @@ function IndexPage({ dispatch, list }) {
         }
         titleStyle={{ textAlign: 'center' }}
       />
+      {list.length === 0 && <div className={styles.nobook}>
+        书架空空如也，还不找点书看~
+      </div>}
       <BookShelf dispatch={dispatch} list={list} />
       <div className={styles.add}>
         <FloatingActionButton onClick={gotoUrl}>

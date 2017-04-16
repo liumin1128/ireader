@@ -1,33 +1,33 @@
 export const defaultTheme = {
   padding: '16px 0',
   lineHeight: '2em',
-  color: '#515151',
-  background: 'rgba(0,0,0,0.1)',
+  color: 'rgba(0,0,0,0.7)',
+  background: '#FAF9DE',
   textShadow: '0 0 1px rgba(0,0,0,0.05)',
-  fontSize: 16,
+  fontSize: 20,
 };
 
 export const themes = [{
   background: '#fff',
-  color: '#515151',
+  color: 'rgba(0,0,0,0.7)',
 }, {
   background: '#FAF9DE',
-  color: '#515151',
+  color: 'rgba(0,0,0,0.7)',
 }, {
   background: '#FFF2E2',
-  color: '#515151',
+  color: 'rgba(0,0,0,0.7)',
 }, {
   background: '#FDE6E0',
-  color: '#515151',
+  color: 'rgba(0,0,0,0.7)',
 }, {
   background: '#E3EDCD',
-  color: '#515151',
+  color: 'rgba(0,0,0,0.7)',
 }, {
   background: '#DCE2F1',
-  color: '#515151',
+  color: 'rgba(0,0,0,0.7)',
 }, {
   background: '#E9EBFE',
-  color: '#515151',
+  color: 'rgba(0,0,0,0.7)',
 }, {
   background: '#000',
   color: '#fff',
