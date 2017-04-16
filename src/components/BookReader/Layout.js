@@ -8,8 +8,11 @@ import FlatButton from 'material-ui/FlatButton';
 import Sunny from 'material-ui/svg-icons/image/wb-sunny';
 import FontSizeIcon from 'material-ui/svg-icons/editor/format-size';
 import { Tabs, Tab } from 'material-ui/Tabs';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import LockIcon from 'material-ui/svg-icons/action/lock';
 import LeftIcon from 'material-ui/svg-icons/hardware/keyboard-backspace';
 import Moon from 'material-ui/svg-icons/image/brightness-3';
 import Loading from './Loading';
@@ -68,6 +71,10 @@ class Layout extends Component {
     }));
   }
   render() {
+    const items = [];
+    for (let i = 0; i < 100; i++) {
+      items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`} />);
+    }
     const { children, chapterList, book, status } = this.props;
     const { show, showChapterList, showSettings, brightness, theme } = this.state;
     return (
@@ -126,6 +133,7 @@ class Layout extends Component {
                 style={book.current === index ? { color: 'red' } : {}}
               >
                 {i.title}
+                {i.isVip && <LockIcon style={{ float: 'right', width: 14, color: '#789' }} />}
               </p>,
             )
           }
@@ -156,6 +164,13 @@ class Layout extends Component {
           <div className={styles.themeSelect}>
             {themes.map((i, index) => <span onClick={this.setTheme.bind(this, i)} className={theme === index && styles.active} key={i.background} style={{ ...i }} />)}
           </div>
+          <SelectField
+            value={this.state.value}
+            onChange={this.handleChange}
+            maxHeight={200}
+          >
+            {items}
+          </SelectField>
         </Dialog>
         <div className={styles.mask} style={{ opacity: (1 - brightness) }} onClick={this.showOrCloseHandler.bind(this, 'show')} />
       </div>
