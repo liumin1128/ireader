@@ -1,5 +1,7 @@
 import db from 'localforage';
 
+db.clear();
+
 export async function save({ payload }) {
   console.log(payload);
   let temp = [payload];
@@ -16,8 +18,10 @@ export async function save({ payload }) {
     if (isInArr) {
       console.log(`${payload.title} 已存在列表中，已更新`);
       const temp2 = data;
+      const temp3 = [{ ...temp2[arrIndex], ...payload }];
       temp2.splice(arrIndex, 1);
-      temp = temp.concat(temp2);
+      temp = temp3.concat(temp2);
+      console.log(temp);
     } else {
       console.log(`${payload.title} 加入书架`);
       temp = temp.concat(data);
@@ -26,17 +30,20 @@ export async function save({ payload }) {
   return db.setItem('bookshelf', temp);
 }
 export function get() {
-//   db.clear();
   return db.getItem('bookshelf');
 }
 
 export async function getBookById({ query }) {
   const data = await db.getItem('bookshelf');
-  let book;
-  data.map((i) => {
-    if (query.id === i.id) {
-      book = i;
-    }
-  });
-  return book;
+  if (data) {
+    let book;
+    data.map((i) => {
+      if (query.id === i.id) {
+        book = i;
+      }
+    });
+    return book;
+  } else {
+    return null;
+  }
 }

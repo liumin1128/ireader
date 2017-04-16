@@ -1,7 +1,6 @@
 import swal from 'sweetalert';
 import * as bookReaderService from '../services/bookReader.js';
 import * as bookShelfService from '../services/bookShelf.js';
-
 import { formatChapter } from '../utils/format.js';
 import { defaultTheme } from '../utils/constant.js';
 
@@ -12,7 +11,10 @@ export default {
     chapter: {},
     chapterList: [],
     bookSource: [],
-    book: {},
+    book: {
+      currentChapter: 0,
+      currentSource: 0,
+    },
     status: 'loading',
   },
   reducers: {
@@ -22,84 +24,81 @@ export default {
   },
   effects: {
     *initReader({}, { call, put }) {
+      console.log('初始化阅读器,检查是否存在自定义主题');
       const theme = yield call(bookReaderService.getTheme);
-      console.log(theme);
-      yield put({ type: 'save', payload: { theme } });
+      if (theme) {
+        console.log('存在自定义主题，加载自定义主题');
+        console.log(theme);
+        yield put({ type: 'save', payload: { theme } });
+      }
     },
     *getSource({ query }, { call, put }) {
       yield put({ type: 'save', payload: { status: 'loading' } });
-      console.log('源参数');
-      console.log(query);
-      console.log('从书架获取书籍信息');
+      // 从本地书架获取书籍信息
       const book = yield call(bookShelfService.getBookById, { query });
-      console.log(book);
-      console.log('获取书源');
-      console.log(query);
+      // 如果书籍不在书架中,则需要先加入书架再阅读
+      if (!book) { yield put({ type: 'bookShelf/putAndRead', payload: query }); return; }
+
+      // 初始化书源，书源编号
       let bookSource;
+      let currentSource = 0;
+
+      // 已在书架中，但没有书源，从服务器获取书源
       if (!book.bookSource || book.bookSource.length === 0) {
-        console.log('本地无书源，从服务器加载');
         const { data } = yield call(bookReaderService.getSource, { query });
         bookSource = data;
+        // 更新书籍信息
         book.bookSource = data;
-        console.log('新的书籍信息');
-        console.log(book);
-        console.log('将书籍信息存好');
+        // 将更新后的书籍信息存好
         yield call(bookShelfService.save, { payload: { ...book } });
       } else {
-        console.log('本地有数据，直接加载');
+        // 本地有数据，直接加载
         bookSource = book.bookSource;
+        // 如果用户选择了某个源
+        if (book.currentSource) { currentSource = book.currentSource; }
       }
-      console.log('书源');
-      console.log(bookSource);
+
       if (bookSource) {
+        // 将书源，以及书籍信息保存到redux中
         yield put({ type: 'save', payload: { bookSource, book } });
-        console.log('确认当前使用的是几号书源');
-        const currentSource = book.currentSource || 0;
-        console.log(currentSource);
         yield put({ type: 'getChapterList', query: { id: bookSource[currentSource]._id } });
       } else {
-        console.log('获取源失败，正在重试！');
+        // 获取超时，刷新页面重试
         window.location.reload();
       }
     },
     *getChapterList({ query }, { call, put, select }) {
-      console.log('章节列表参数');
-      console.log(query);
       const { bookReader } = yield select();
-      const currentChapter = bookReader.book.currentChapter || 0;
       const book = bookReader.book;
+      const currentChapter = book.currentChapter || 0;
       let chapterList;
-        // 这里判断一下是否存在本地章节列表，
-        // 本地章节列表是否与书籍匹配，
-        // 章节列表长度是否异常，
-        //
-      console.log('本地章节列表');
-      console.log(book);
-      console.log('查询参数');
-      console.log(query.id);
-      if (!book.chapterList || book.chapterList._id !== query.id || book.currentChapter === book.chapterList.chapters.length) {
-        console.log('本地没有最新的章节列表，从服务端加载');
+
+      /**
+       * 这里判断是否存在本地章节列表
+       * 检查本地章节列表是否与书籍匹配
+       * 检查用户是否已经快要阅读到最新章节
+       * 如果以上条件全部满足，则加载本地章节列表，否则更新
+       */
+
+      if (!book.chapterList || book.chapterList._id !== query.id || book.chapterList.chapters.length - book.currentChapter < 10) {
+        // 本地没有最新的章节列表，从服务端加载
         const { data } = yield call(bookReaderService.getChapterList, { query });
-        console.log(data);
         chapterList = data;
+        // 更新章节列表到本地书架
         book.chapterList = data;
-        console.log('将书章节列表存好');
         yield call(bookShelfService.save, { payload: { ...book } });
       } else {
-        console.log('本地有章节列表，直接读取');
+        // 本地有章节列表，直接读取
         chapterList = book.chapterList;
       }
-      console.log('章节列表');
-      console.log(chapterList);
+
       if (chapterList) {
         yield put({ type: 'save', payload: { chapterList } });
         yield put({
           type: 'getChapter', query: { link: chapterList.chapters[currentChapter].link },
         });
       } else {
-        console.log('未获取到章节列表，正在重试！');
         window.location.reload();
-        // yield put({ type: 'getChapterList', query });
       }
     },
     *getChapter({ query }, { call, put }) {

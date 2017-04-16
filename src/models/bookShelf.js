@@ -1,4 +1,8 @@
+import { routerRedux } from 'dva/router';
+
 import * as bookShelfService from '../services/bookShelf.js';
+import * as bookDetailService from '../services/bookDetail.js';
+import { formatBookDetail } from '../utils/format.js';
 
 export default {
   namespace: 'bookShelf',
@@ -19,6 +23,23 @@ export default {
       let data = yield call(bookShelfService.get);
       if (!data) data = [];
       yield put({ type: 'save', payload: { list: data } });
+    },
+    *putAndRead({ payload }, { call, put }) {
+      const { data } = yield call(bookDetailService.getDetail, { query: payload });
+      console.log(data);
+      if (!data) { window.location.reload(); }
+      const detail = formatBookDetail(data);
+      const newBook = {
+        id: detail._id,
+        cover: detail.cover,
+        title: detail.title,
+      };
+      const list = yield call(bookShelfService.save, { payload: newBook });
+      yield put({ type: 'save', payload: { list } });
+      yield put(routerRedux.push({
+        pathname: 'reader',
+        query: { id: detail._id },
+      }));
     },
   },
   subscriptions: {

@@ -82,7 +82,6 @@ class Layout extends Component {
         <div className={`${styles.header} ${show ? styles.headerhide : ''}`}>
           <AppBar
             title={book.title}
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
             iconElementLeft={<IconButton><LeftIcon /></IconButton>}
             iconElementRight={<FlatButton onClick={this.goToUrl.bind(this, 'source')} style={{ margin: 0 }} label="换源" />}
             onLeftIconButtonTouchTap={this.back}

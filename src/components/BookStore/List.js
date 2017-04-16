@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import { routerRedux } from 'dva/router';
+import { goToUrl } from '../../utils/common.js';
 
 import styles from './List.less';
 
@@ -11,6 +12,12 @@ function List({ dispatch, list }) {
       pathname,
       query: { id },
     }));
+  }
+  function read(id) {
+    dispatch({
+      type: 'bookShelf/putAndRead',
+      payload: { id },
+    });
   }
   return (
     <div className={styles.list}>
@@ -32,7 +39,7 @@ function List({ dispatch, list }) {
             {i.shortIntro}
             <CardActions style={{ paddingRight: 0, display: 'flex', justifyContent: 'flex-end' }}>
               <RaisedButton label="查看详情" onClick={gotoUrl.bind(this, '/book', i._id)} primary />
-              <RaisedButton label="立即阅读" onClick={gotoUrl.bind(this, '/reader', i._id)} secondary style={{ marginRight: 0, marginLeft: 8 }} />
+              <RaisedButton label="立即阅读" onClick={read.bind(this, i._id)} secondary style={{ marginRight: 0, marginLeft: 8 }} />
             </CardActions>
           </CardText>
         </Card>,
