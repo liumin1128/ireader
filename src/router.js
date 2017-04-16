@@ -10,6 +10,8 @@ import Reader from './routes/Reader.js';
 
 import MainLayout from './components/Layout/Main';
 
+import Source from './routes/Source.js';
+
 function RouterConfig({ history }) {
   return (
     <Router history={history}>
@@ -18,6 +20,7 @@ function RouterConfig({ history }) {
         <Route path="/bookstore" component={Bookstore} />
         <Route path="/book" component={Book} />
         <Route path="/reader" component={Reader} />
+        <Route path="/source" component={Source} />
       </Route>
     </Router>
   );

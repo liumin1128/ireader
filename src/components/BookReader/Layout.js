@@ -4,12 +4,16 @@ import AppBar from 'material-ui/AppBar';
 import Slider from 'material-ui/Slider';
 import Dialog from 'material-ui/Dialog';
 import IconButton from 'material-ui/IconButton';
-import NavigationClose from 'material-ui/svg-icons/navigation/close';
+import FlatButton from 'material-ui/FlatButton';
 import Sunny from 'material-ui/svg-icons/image/wb-sunny';
 import FontSizeIcon from 'material-ui/svg-icons/editor/format-size';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import MapsPersonPin from 'material-ui/svg-icons/maps/person-pin';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import LeftIcon from 'material-ui/svg-icons/hardware/keyboard-backspace';
+import Moon from 'material-ui/svg-icons/image/brightness-3';
 import Loading from './Loading';
+
 import styles from './Layout.less';
 import { themes } from '../../utils/constant.js';
 
@@ -17,7 +21,7 @@ class Layout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: true,
+      show: false,
       showChapterList: false,
       showSettings: false,
       brightness: 1,
@@ -58,6 +62,11 @@ class Layout extends Component {
       pathname: '/',
     }));
   }
+  goToUrl = (pathname) => {
+    this.props.dispatch(routerRedux.push({
+      pathname,
+    }));
+  }
   render() {
     const { children, chapterList, book, status } = this.props;
     const { show, showChapterList, showSettings, brightness, theme } = this.state;
@@ -65,9 +74,10 @@ class Layout extends Component {
       <div>
         <div className={`${styles.header} ${show ? styles.headerhide : ''}`}>
           <AppBar
-            title={book.title + status}
+            title={book.title}
             iconClassNameRight="muidocs-icon-navigation-expand-more"
-            iconElementLeft={<IconButton><NavigationClose /></IconButton>}
+            iconElementLeft={<IconButton><LeftIcon /></IconButton>}
+            iconElementRight={<FlatButton onClick={this.goToUrl.bind(this, 'source')} style={{ margin: 0 }} label="换源" />}
             onLeftIconButtonTouchTap={this.back}
           />
         </div>
@@ -79,7 +89,7 @@ class Layout extends Component {
         <div className={`${styles.foot} ${show ? styles.foothide : ''}`}>
           <Tabs>
             <Tab
-              icon={<MapsPersonPin />}
+              icon={<Moon />}
               label="夜间"
             />
             <Tab
@@ -96,7 +106,7 @@ class Layout extends Component {
               label="存缓"
             />
             <Tab
-              icon={<MapsPersonPin />}
+              icon={<SettingsIcon />}
               label="设置"
               onClick={this.showOrCloseHandler.bind(this, 'showSettings')}
             />
@@ -142,12 +152,6 @@ class Layout extends Component {
             <IconButton onClick={this.setFontSize.bind(this, 'reduce')}>
               <FontSizeIcon color="#848484" />
             </IconButton>
-            {/* <IconButton onClick={this.setLineHeight.bind(this, 'increase')} iconStyle={{ width: 18 }}>
-              <LineSpacing color="#848484" />
-            </IconButton>
-            <IconButton onClick={this.setLineHeight.bind(this, 'reduce')}>
-              <LineSpacing color="#848484" />
-            </IconButton>*/}
           </div>
           <div className={styles.themeSelect}>
             {themes.map((i, index) => <span onClick={this.setTheme.bind(this, i)} className={theme === index && styles.active} key={i.background} style={{ ...i }} />)}

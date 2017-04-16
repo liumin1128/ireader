@@ -33,30 +33,68 @@ export default {
       console.log('从书架获取书籍信息');
       const book = yield call(bookShelfService.getBookById, { query });
       console.log(book);
-      const { data: bookSource } = yield call(bookReaderService.getSource, { query });
+      console.log('获取书源');
+      console.log(query);
+      let bookSource;
+      if (!book.bookSource || book.bookSource.length === 0) {
+        console.log('本地无书源，从服务器加载');
+        const { data } = yield call(bookReaderService.getSource, { query });
+        bookSource = data;
+        book.bookSource = data;
+        console.log('新的书籍信息');
+        console.log(book);
+        console.log('将书籍信息存好');
+        yield call(bookShelfService.save, { payload: { ...book } });
+      } else {
+        console.log('本地有数据，直接加载');
+        bookSource = book.bookSource;
+      }
       console.log('书源');
       console.log(bookSource);
       if (bookSource) {
         yield put({ type: 'save', payload: { bookSource, book } });
-        yield put({
-          type: 'getChapterList', query: { id: bookSource[0]._id },
-        });
+        console.log('确认当前使用的是几号书源');
+        const currentSource = book.currentSource || 0;
+        console.log(currentSource);
+        yield put({ type: 'getChapterList', query: { id: bookSource[currentSource]._id } });
       } else {
         console.log('获取源失败，正在重试！');
         window.location.reload();
-        // yield put({ type: 'getSource', query });
       }
     },
     *getChapterList({ query }, { call, put, select }) {
+      console.log('章节列表参数');
+      console.log(query);
       const { bookReader } = yield select();
-      const current = bookReader.book.current || 0;
-      const { data } = yield call(bookReaderService.getChapterList, { query });
+      const currentChapter = bookReader.book.currentChapter || 0;
+      const book = bookReader.book;
+      let chapterList;
+        // 这里判断一下是否存在本地章节列表，
+        // 本地章节列表是否与书籍匹配，
+        // 章节列表长度是否异常，
+        //
+      console.log('本地章节列表');
+      console.log(book);
+      console.log('查询参数');
+      console.log(query.id);
+      if (!book.chapterList || book.chapterList._id !== query.id || book.currentChapter === book.chapterList.chapters.length) {
+        console.log('本地没有最新的章节列表，从服务端加载');
+        const { data } = yield call(bookReaderService.getChapterList, { query });
+        console.log(data);
+        chapterList = data;
+        book.chapterList = data;
+        console.log('将书章节列表存好');
+        yield call(bookShelfService.save, { payload: { ...book } });
+      } else {
+        console.log('本地有章节列表，直接读取');
+        chapterList = book.chapterList;
+      }
       console.log('章节列表');
-      console.log(data);
-      if (data) {
-        yield put({ type: 'save', payload: { chapterList: data } });
+      console.log(chapterList);
+      if (chapterList) {
+        yield put({ type: 'save', payload: { chapterList } });
         yield put({
-          type: 'getChapter', query: { link: data.chapters[current].link },
+          type: 'getChapter', query: { link: chapterList.chapters[currentChapter].link },
         });
       } else {
         console.log('未获取到章节列表，正在重试！');
@@ -79,31 +117,31 @@ export default {
       const { bookReader } = yield select();
       const list = bookReader.chapterList.chapters;
       const book = bookReader.book;
-      let current = book.current || 0;
+      let currentChapter = book.currentChapter || 0;
       switch (payload.type) {
         case 'next':
-          if (current === list.length) {
+          if (currentChapter === list.length) {
             swal('已经是最后一章了!');
             return;
           } else {
-            current += 1;
+            currentChapter += 1;
           }
           break;
         case 'prev':
-          if (current === 0) {
+          if (currentChapter === 0) {
             swal('已经是第一章了！');
             return;
           } else {
-            current -= 1;
+            currentChapter -= 1;
           }
           break;
         case 'goto':
-          if (current === payload.obj) {
+          if (currentChapter === payload.obj) {
             return;
           } else if (payload.obj > list.length || payload.obj < 0) {
             swal('喂喂，你想去哪啊，没有这章啦！');
           } else {
-            current = payload.obj;
+            currentChapter = payload.obj;
           }
           break;
         default:
@@ -111,15 +149,37 @@ export default {
 
       }
       window.document.body.scrollTop = 0;
-      book.current = current;
+      book.currentChapter = currentChapter;
       yield call(bookShelfService.save, { payload: { ...book } });
       yield put({
         type: 'save',
         payload: { book },
       });
       yield put({
-        type: 'getChapter', query: { link: list[current].link },
+        type: 'getChapter', query: { link: list[currentChapter].link },
       });
+    },
+    *changeSource({ payload }, { call, put, select }) {
+      console.log(payload);
+      yield put({ type: 'save', payload: { status: 'loading' } });
+      const { bookReader } = yield select();
+      const book = bookReader.book;
+      const list = bookReader.bookSource;
+      let currentSource = book.currentSource || 0;
+      currentSource = parseInt(payload.index, 0);
+      window.document.body.scrollTop = 0;
+      book.currentSource = currentSource;
+      console.log(book);
+      yield call(bookShelfService.save, { payload: { ...book } });
+      yield put({
+        type: 'save',
+        payload: { book },
+      });
+      console.log(list);
+      yield put({
+        type: 'getChapterList', query: { id: list[currentSource]._id },
+      });
+      window.history.back();
     },
     *setTheme({ payload }, { call, put, select }) {
       console.log(payload);
