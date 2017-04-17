@@ -31,6 +31,25 @@ export async function save({ payload }) {
 export function get() {
   return db.getItem('bookshelf');
 }
+export async function del({ payload }) {
+  console.log(payload);
+  const data = await db.getItem('bookshelf');
+  const temp = data;
+  if (data && data.length > 0) {
+    let isInArr = false;
+    let arrIndex = 0;
+    data.map((i, index) => {
+      if (i.id === payload.id) {
+        isInArr = true;
+        arrIndex = index;
+      }
+    });
+    if (isInArr) {
+      temp.splice(arrIndex, 1);
+    }
+  }
+  return db.setItem('bookshelf', temp);
+}
 
 export async function getBookById({ query }) {
   const data = await db.getItem('bookshelf');

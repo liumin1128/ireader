@@ -40,6 +40,10 @@ export default {
         query: { id: detail._id },
       }));
     },
+    *del({ payload }, { call, put }) {
+      const data = yield call(bookShelfService.del, { payload });
+      yield put({ type: 'save', payload: { list: data } });
+    },
   },
   subscriptions: {
     setup({ dispatch, history }) {
