@@ -2,7 +2,7 @@ import dva from 'dva';
 import createLoading from 'dva-loading';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import 'sweetalert/dist/sweetalert.css';
-import './index.css';
+import './index.less';
 
 injectTapEventPlugin();
 
@@ -12,7 +12,7 @@ const app = dva();
 
 app.model(require('./models/bookStore'));
 
-app.model(require("./models/bookShelf"));
+app.model(require('./models/bookShelf'));
 
 app.model(require('./models/bookReader'));
 

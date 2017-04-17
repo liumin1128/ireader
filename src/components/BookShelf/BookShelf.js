@@ -35,7 +35,7 @@ function BookShelf({ dispatch, list }) {
       {
         list && list.map(i =>
           <Hammer
-            onTap={gotoUrl.bind(this, i.id)}
+            onClick={gotoUrl.bind(this, i.id)}
             onPress={del.bind(this, i.id, i.title)}
             key={i.id}
           >
