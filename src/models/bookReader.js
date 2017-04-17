@@ -158,6 +158,8 @@ export default {
         case 'next':
           if (currentChapter === list.length) {
             swal('已经是最后一章了!');
+            yield put({ type: 'save', payload: { status: 'success' } });
+
             return;
           } else {
             currentChapter += 1;
@@ -166,6 +168,8 @@ export default {
         case 'prev':
           if (currentChapter === 0) {
             swal('已经是第一章了！');
+            yield put({ type: 'save', payload: { status: 'success' } });
+
             return;
           } else {
             currentChapter -= 1;
@@ -176,6 +180,7 @@ export default {
             return;
           } else if (payload.obj > list.length || payload.obj < 0) {
             swal('喂喂，你想去哪啊，没有这章啦！');
+            yield put({ type: 'save', payload: { status: 'success' } });
           } else {
             currentChapter = payload.obj;
           }
