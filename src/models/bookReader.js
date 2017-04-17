@@ -63,7 +63,19 @@ export default {
         yield put({ type: 'getChapterList', query: { id: bookSource[currentSource]._id } });
       } else {
         // 获取超时，刷新页面重试
-        window.location.reload();
+        swal({
+          title: '获取源失败',
+          text: '换源服务器不稳定，偶尔会出现这种情况，刷新页面重试？还是要再换个源？',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: '再试一次！',
+          cancelButtonText: '换源',
+          closeOnConfirm: false,
+        },
+        () => {
+          window.location.reload();
+        });
       }
     },
     *getChapterList({ query }, { call, put, select }) {
@@ -97,7 +109,19 @@ export default {
           type: 'getChapter', query: { link: chapterList.chapters[currentChapter].link },
         });
       } else {
-        window.location.reload();
+        swal({
+          title: '获取章节列表失败',
+          text: '换源服务器不稳定，偶尔会出现这种情况，刷新页面重试？还是要再换个源？',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: '再试一次！',
+          cancelButtonText: '换源',
+          closeOnConfirm: false,
+        },
+        () => {
+          window.location.reload();
+        });
       }
     },
     *getChapter({ query }, { call, put }) {
@@ -105,7 +129,23 @@ export default {
       if (data) {
         yield put({ type: 'save', payload: { chapter: formatChapter(data.chapter), status: 'success' } });
       } else {
-        window.location.reload();
+        swal({
+          title: '获取章节失败',
+          text: '换源服务器不稳定，偶尔会出现这种情况，刷新页面重试？还是要再换个源？',
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#DD6B55',
+          confirmButtonText: '换源！',
+          cancelButtonText: '刷新',
+          // closeOnConfirm: false,
+        },
+        (isConfirm) => {
+          if (isConfirm) {
+            window.history.forward();
+          } else {
+            window.location.reload();
+          }
+        });
       }
     },
     *changeChapter({ payload }, { call, put, select }) {
