@@ -2,7 +2,7 @@
 
 ![3123123wqedeasda](http://ooi7vpwhj.bkt.clouddn.com/2017-04-29-3123123wqedeasda.jpg)
 
-在线地址：[ireader.liumin.me](http://ireader.liumin.me/#/?_k=tnf3wn)
+在线地址：[ireader.liumin.me:8000](http://ireader.liumin.me:8000/#/?_k=tnf3wn)
 
 github开源地址：[https://github.com/liumin1128/ireader](https://github.com/liumin1128/ireader)
 
