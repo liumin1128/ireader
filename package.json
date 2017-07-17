@@ -57,11 +57,14 @@
     "webpack-dev-server": "^2.5.0"
   },
   "dependencies": {
+    "material-ui": "^1.0.0-alpha.21",
+    "material-ui-icons": "^1.0.0-alpha.19",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.7.1",
     "redux-saga": "^0.15.4"
   }
