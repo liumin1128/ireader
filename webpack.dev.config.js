@@ -81,6 +81,18 @@ module.exports = () => {
       port: 8000,
       host: 'localhost',
       historyApiFallback: true,
+      proxy: {
+        '/api': {
+          target: 'http://api.zhuishushenqi.com/',
+          changeOrigin: true,
+          pathRewrite: { '^/api': '' },
+        },
+        '/chapter': {
+          target: 'http://chapter2.zhuishushenqi.com/',
+          changeOrigin: true,
+          pathRewrite: { '^/api': '' },
+        },
+      },
     },
     // performance: {
     //   hints: options.dev ? false : 'warning',
