@@ -45,6 +45,10 @@ module.exports = () => {
           use: ['style-loader', 'css-loader?modules&localIdentName=[name]__[local]___[hash:base64:5]', 'less-loader', 'postcss-loader'],
         },
         {
+          test: /\.scss$/,
+          use: ['style-loader', 'css-loader?modules', 'scss-loader', 'postcss-loader'],
+        },
+        {
           test: /\.(png|jpg|jpeg|gif|eot|ttf|woff|woff2|svg|svgz)(\?.+)?$/,
           exclude: /favicon.png$/,
           use: [
@@ -59,14 +63,13 @@ module.exports = () => {
       ],
     },
     // devtool: 'eval',
-    devtool: 'cheap-source-map',
-    resolve: {
-      alias: {
-        react: 'preact-compat',
-        'react-dom': 'preact-compat',
-        'preact-compat': 'preact-compat/dist/preact-compat',
-      },
-    },
+    // resolve: {
+    //   alias: {
+    //     react: 'preact-compat',
+    //     'react-dom': 'preact-compat',
+    //     'preact-compat': 'preact-compat/dist/preact-compat',
+    //   },
+    // },
     plugins: [
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"',
@@ -74,8 +77,8 @@ module.exports = () => {
       new CopyWebpackPlugin([{ from: './dll/vendors.dll.js', to: 'dll.js' }]),
       new HtmlWebpackPlugin({ template: './public/index.html' }),
       // new webpack.HotModuleReplacementPlugin(), // enable HMR globally
-      // new webpack.NoEmitOnErrorsPlugin(), // 遇到错误继续
-      // new webpack.NamedModulesPlugin(), // prints more readable module names
+      new webpack.NoEmitOnErrorsPlugin(), // 遇到错误继续
+      new webpack.NamedModulesPlugin(), // prints more readable module names
       new webpack.DllReferencePlugin({ context: __dirname, manifest }),
     ],
     devServer: {
@@ -83,18 +86,6 @@ module.exports = () => {
       host: '0.0.0.0',
       historyApiFallback: true,
       disableHostCheck: true,
-      proxy: {
-        '/api': {
-          target: 'http://api.zhuishushenqi.com/',
-          changeOrigin: true,
-          pathRewrite: { '^/api': '' },
-        },
-        '/chapter': {
-          target: 'http://chapter2.zhuishushenqi.com/',
-          changeOrigin: true,
-          pathRewrite: { '^/api': '' },
-        },
-      },
     },
     // performance: {
     //   hints: options.dev ? false : 'warning',

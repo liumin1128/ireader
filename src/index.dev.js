@@ -15,6 +15,7 @@ const render = (Component) => {
 render(App);
 
 if (module.hot) {
-  console.log('热更新成功');
-  module.hot.accept('./router.js', () => { render(App); });
+  module.hot.accept('./router.js', () => {
+    render(App);
+  });
 }

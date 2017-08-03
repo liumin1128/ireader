@@ -17,5 +17,5 @@ export function getChapter({ link }) {
 
 // 搜索书籍
 export function search({ query }) {
-  return request(`/api/book/fuzzy-search?query=${query}&start=0&limit=10`);
+  return request(`/api/book/fuzzy-search?query=${query}&start=0&limit=30`);
 }

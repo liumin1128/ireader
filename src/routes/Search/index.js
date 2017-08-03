@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SearchBar from '../../components/SearchBar';
+import Item from './Item';
 
 class Search extends Component {
   constructor(props) {
@@ -26,11 +27,8 @@ class Search extends Component {
     const { list } = this.props;
     return (<div>
       <SearchBar onSubmit={this.search} />
-      {list.length}
       {
-        list.map(i => (<div key={i._id}>
-          <h3>{i.title}</h3>
-        </div>))
+        list.map(i => (<Item key={i.id} {...i} />))
       }
     </div>);
   }

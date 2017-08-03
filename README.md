@@ -3,3 +3,16 @@ cnpm i -D babel-core babel-eslint babel-loader babel-preset-es2015 babel-preset-
 cnpm i -S react react-dom react-router react-router-dom redux react-redux redux-saga material-ui@next material-ui-icons
 
 cnpm i -S preact preact-compat react-router react-router-dom redux react-redux redux-saga
+
+proxy: {
+        '/api': {
+          target: 'http://api.zhuishushenqi.com/',
+          changeOrigin: true,
+          pathRewrite: { '^/api': '' },
+        },
+        '/chapter': {
+          target: 'http://chapter2.zhuishushenqi.com/',
+          changeOrigin: true,
+          pathRewrite: { '^/api': '' },
+        },
+      },
