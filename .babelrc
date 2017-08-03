@@ -5,8 +5,6 @@
       "react"
     ],
     "plugins": [
-        // "transform-remove-console",
-        "transform-runtime",
-        // "react-hot-loader/babel"
+        "transform-runtime"
     ]
 }

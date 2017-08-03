@@ -66,6 +66,7 @@ module.exports = () => {
       alias: {
         react: 'preact-compat',
         'react-dom': 'preact-compat',
+        'preact-compat': 'preact-compat/dist/preact-compat',
       },
     },
     plugins: [
@@ -99,8 +100,9 @@ module.exports = () => {
       // new webpack.HotModuleReplacementPlugin(), // enable HMR globally
       // new webpack.NoEmitOnErrorsPlugin(), // 遇到错误继续
       // new webpack.NamedModulesPlugin(), // prints more readable module names
-      // new webpack.DllReferencePlugin({ context: __dirname, manifest }),
-      new webpack.optimize.ModuleConcatenationPlugin(), // 模块串联，大幅减少包大小257k =》239k
+      new CopyWebpackPlugin([{ from: './dll/vendors.dll.js', to: 'dll.js' }]),
+      new webpack.DllReferencePlugin({ context: __dirname, manifest }),
+      // new webpack.optimize.ModuleConcatenationPlugin(), // 模块串联，大幅减少包大小257k =》239k
       new webpack.optimize.UglifyJsPlugin({
         beautify: false, // 最紧凑的输出
         comments: false, // 删除所有的注释
