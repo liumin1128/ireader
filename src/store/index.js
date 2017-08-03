@@ -18,6 +18,6 @@ const store = createStore(
 
 saga.run(effects);
 
-store.dispatch({ type: 'getSource' });
+// store.dispatch({ type: 'getSource' });
 
 export default store;

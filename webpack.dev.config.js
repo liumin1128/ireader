@@ -60,22 +60,22 @@ module.exports = () => {
     },
     // devtool: 'eval',
     // devtool: 'cheap-source-map',
-    // resolve: {
-    //   alias: {
-    //     react: 'preact-compat',
-    //     'react-dom': 'preact-compat',
-    //   },
-    // },
+    resolve: {
+      alias: {
+        react: 'preact-compat',
+        'react-dom': 'preact-compat',
+      },
+    },
     plugins: [
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"development"',
       }),
-      new CopyWebpackPlugin([{ from: './dll/vendors.dll.js', to: 'dll.js' }]),
+      // new CopyWebpackPlugin([{ from: './dll/vendors.dll.js', to: 'dll.js' }]),
       new HtmlWebpackPlugin({ template: './public/index.html' }),
       // new webpack.HotModuleReplacementPlugin(), // enable HMR globally
       // new webpack.NoEmitOnErrorsPlugin(), // 遇到错误继续
       // new webpack.NamedModulesPlugin(), // prints more readable module names
-      new webpack.DllReferencePlugin({ context: __dirname, manifest }),
+      // new webpack.DllReferencePlugin({ context: __dirname, manifest }),
     ],
     devServer: {
       port: 8000,

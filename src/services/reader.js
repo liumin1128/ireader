@@ -14,3 +14,8 @@ export function getChapterList({ id }) {
 export function getChapter({ link }) {
   return request(`/chapter/${link}?k=2124b73d7e2e1945&t=1468223717`);
 }
+
+// 搜索书籍
+export function search({ query }) {
+  return request(`/api/book/fuzzy-search?query=${query}&start=0&limit=10`);
+}

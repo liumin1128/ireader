@@ -2,6 +2,7 @@ const initState = {
   source: [],
   chapters: [],
   chapter: {},
+  searchList: [],
 };
 
 function reader(state = initState, action) {
