@@ -24,7 +24,7 @@ class Search extends Component {
     // });
   }
   render() {
-    const { list } = this.props;
+    const { list = [] } = this.props;
     return (<div>
       <SearchBar onSubmit={this.search} />
       {

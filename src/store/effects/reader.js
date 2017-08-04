@@ -37,7 +37,8 @@ function* getChapter() {
 function* search({ query }) {
   try {
     const data = yield call(readerServices.search, query);
-    yield put({ type: 'reader/save', payload: { searchList: data.books } });
+    console.log(data);
+    yield put({ type: 'reader/save', payload: { searchList: data.books || [] } });
   } catch (error) {
     console.log(error);
   }

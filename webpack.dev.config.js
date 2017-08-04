@@ -86,6 +86,23 @@ module.exports = () => {
       host: '0.0.0.0',
       historyApiFallback: true,
       disableHostCheck: true,
+      proxy: {
+        '/api': {
+          target: 'http://api.zhuishushenqi.com/',
+          changeOrigin: true,
+          pathRewrite: { '^/api': '' },
+        },
+        '/chapter': {
+          target: 'http://chapter2.zhuishushenqi.com/',
+          changeOrigin: true,
+          pathRewrite: { '^/api': '' },
+        },
+        '/agent': {
+          target: 'http://statics.zhuishushenqi.com/',
+          changeOrigin: true,
+          pathRewrite: { '^/api': '' },
+        },
+      },
     },
     // performance: {
     //   hints: options.dev ? false : 'warning',
