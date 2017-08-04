@@ -16,6 +16,9 @@ class Search extends Component {
         },
       });
     };
+    this.goToDetail = (id) => {
+      this.props.history.push(`/book?id=${id}`);
+    };
   }
   componentWillMount() {
     console.log(this);
@@ -28,7 +31,9 @@ class Search extends Component {
     return (<div>
       <SearchBar onSubmit={this.search} />
       {
-        list.map(i => (<Item key={i.id} {...i} />))
+        list.map(i => (<div onClick={this.goToDetail.bind(this, i._id)} key={i._id}>
+          <Item {...i} />
+        </div>))
       }
     </div>);
   }
