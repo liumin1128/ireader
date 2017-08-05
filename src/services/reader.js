@@ -19,3 +19,7 @@ export function getChapter({ link }) {
 export function search({ query }) {
   return request(`/api/book/fuzzy-search?query=${query}&start=0&limit=10`);
 }
+
+export function getDetail({ id }) {
+  return request(`/api/book/${id}`);
+}

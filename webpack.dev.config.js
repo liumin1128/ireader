@@ -17,6 +17,7 @@ module.exports = () => {
     output: {
       path: resolve(__dirname, 'dist'),
       filename: '[name].js',
+      publicPath: '/', // 同output的publicPath
     },
     module: {
       rules: [
@@ -86,6 +87,8 @@ module.exports = () => {
       host: '0.0.0.0',
       historyApiFallback: true,
       disableHostCheck: true,
+      contentBase: '/', // 配置服务器目录
+      publicPath: '/', // 同output的publicPath
       proxy: {
         '/api': {
           target: 'http://api.zhuishushenqi.com/',

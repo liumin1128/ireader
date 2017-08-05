@@ -3,6 +3,7 @@ const initState = {
   chapters: [],
   chapter: {},
   searchList: [],
+  detail: {},
 };
 
 function reader(state = initState, action) {

@@ -10,6 +10,7 @@ import {
 import { Provider } from 'react-redux';
 import Index from './routes/Index';
 import Search from './routes/Search';
+import Detail from './routes/Detail';
 import store from './store';
 
 // 模板，套路
@@ -19,6 +20,7 @@ const RouterConfig = () => (
       <div>
         <Route path="/" exact component={Index} />
         <Route path="/search" exact component={Search} />
+        <Route path="/book/:id" exact component={Detail} />
       </div>
     </Router>
   </Provider>

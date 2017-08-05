@@ -43,9 +43,19 @@ function* search({ query }) {
   }
 }
 
+function* getDetail({ query }) {
+  try {
+    const data = yield call(readerServices.getDetail, query);
+    yield put({ type: 'reader/save', payload: { detail: data } });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default [
   takeLatest('reader/getSource', getSource),
   takeLatest('reader/getChapterList', getChapterList),
   takeLatest('reader/getChapter', getChapter),
   takeLatest('reader/search', search),
+  takeLatest('reader/getDetail', getDetail),
 ];
