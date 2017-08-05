@@ -3,7 +3,9 @@ import * as readerServices from '../../services/reader.js';
 
 function* getSource({ query }) {
   try {
+    yield put({ type: 'common/pushLog', payload: { log: { msg: '正在获取书源', status: 'loading' } } });
     const data = yield call(readerServices.getSource, query);
+    yield put({ type: 'common/pushLog', payload: { log: { msg: '获取书源成功', status: 'success' } } });
     yield put({ type: 'reader/save', payload: { source: data } });
     yield getChapterList();
   } catch (error) {
@@ -15,7 +17,9 @@ function* getChapterList() {
   try {
     const { reader: { source, currentSource } } = yield select();
     const { _id: id } = source[currentSource || 0];
+    yield put({ type: 'common/pushLog', payload: { log: { msg: '正在获取章节列表', status: 'loading' } } });
     const { chapters } = yield call(readerServices.getChapterList, { id });
+    yield put({ type: 'common/pushLog', payload: { log: { msg: '获取章节列表成功', status: 'success' } } });
     yield put({ type: 'reader/save', payload: { chapters } });
     yield getChapter();
   } catch (error) {
@@ -27,10 +31,13 @@ function* getChapter() {
   try {
     const { reader: { chapters, currentChapter } } = yield select();
     const { link } = chapters[currentChapter || 0];
+    yield put({ type: 'common/pushLog', payload: { log: { msg: '正在获取章节内容', status: 'loading' } } });
     const { chapter } = yield call(readerServices.getChapter, { link });
     if (chapter) {
+      yield put({ type: 'common/pushLog', payload: { log: { msg: '获取章节列内容成功', status: 'success' } } });
       yield put({ type: 'reader/save', payload: { chapter } });
     } else {
+      yield put({ type: 'common/pushLog', payload: { log: { msg: '获取章节列内容失败', status: 'error' } } });
       yield getNextSource();
     }
   } catch (error) {
@@ -66,6 +73,7 @@ function* getNextSource() {
       console.log('没有可用书源');
       return;
     }
+    yield put({ type: 'common/pushLog', payload: { log: { msg: `正在切换到新的书源: ${source[nextSource].name}`, status: 'loading' } } });
     console.log(`正在尝试切换到书源: ${source[nextSource].name}`);
     yield put({ type: 'reader/save', payload: { currentSource: nextSource } });
     yield getChapterList();

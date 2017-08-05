@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import Head from './Head';
 import Content from './Content';
+import Loading from './Loading';
 
 class Search extends Component {
   constructor(props) {
@@ -33,20 +34,26 @@ class Search extends Component {
     // });
   }
   render() {
-    const { chapter = {} } = this.props;
+    const { chapter = {}, logs = [] } = this.props;
     return (<div>
-      <Head />
-      { chapter.title || '未获取到章节' }
-      <Content content={chapter.body} />
-      <a onClick={this.prev}>上一章</a>
-      <a onClick={this.next}>下一章</a>
+      {
+        chapter.title ? <div>
+          <Head />
+          <Content content={chapter.body} />
+          <a onClick={this.prev}>上一章</a>
+          <a onClick={this.next}>下一章</a>
+        </div> : <Loading logs={logs} />
+      }
+
     </div>);
   }
 }
 
 function mapStateToProps(state) {
   const { chapter, currentChapter } = state.reader;
+  const { logs } = state.common;
   return {
+    logs,
     chapter,
     currentChapter,
   };
