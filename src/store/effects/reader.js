@@ -36,6 +36,7 @@ function* getChapter() {
     if (chapter) {
       yield put({ type: 'common/pushLog', payload: { log: { msg: '获取章节列内容成功', status: 'success' } } });
       yield put({ type: 'reader/save', payload: { chapter } });
+      window.scrollTo(0, 0);
     } else {
       yield put({ type: 'common/pushLog', payload: { log: { msg: '获取章节列内容失败', status: 'error' } } });
       yield getNextSource();
