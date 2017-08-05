@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import Head from './Head';
+import Content from './Content';
+
 class Search extends Component {
   constructor(props) {
     super(props);
@@ -32,8 +35,9 @@ class Search extends Component {
   render() {
     const { chapter = {} } = this.props;
     return (<div>
+      <Head />
       { chapter.title || '未获取到章节' }
-      <p>{ chapter.body }</p>
+      <Content content={chapter.body} />
       <a onClick={this.prev}>上一章</a>
       <a onClick={this.next}>下一章</a>
     </div>);

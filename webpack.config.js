@@ -100,8 +100,8 @@ module.exports = () => {
       // new webpack.HotModuleReplacementPlugin(), // enable HMR globally
       // new webpack.NoEmitOnErrorsPlugin(), // 遇到错误继续
       // new webpack.NamedModulesPlugin(), // prints more readable module names
-      new CopyWebpackPlugin([{ from: './dll/vendors.dll.js', to: 'dll.js' }]),
-      new webpack.DllReferencePlugin({ context: __dirname, manifest }),
+      // new CopyWebpackPlugin([{ from: './dll/vendors.dll.js', to: 'dll.js' }]),
+      // new webpack.DllReferencePlugin({ context: __dirname, manifest }),
       // new webpack.optimize.ModuleConcatenationPlugin(), // 模块串联，大幅减少包大小257k =》239k
       new webpack.optimize.UglifyJsPlugin({
         beautify: false, // 最紧凑的输出
