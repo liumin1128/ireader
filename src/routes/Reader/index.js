@@ -5,10 +5,21 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.readNow = (id) => {
-      this.props.history.push(`/reader/${id}`);
       this.props.dispatch({
         type: 'reader/getSource',
         query: { id },
+      });
+    };
+    this.next = () => {
+      this.goToChapter(this.props.currentChapter + 1);
+    };
+    this.prev = () => {
+      this.goToChapter(this.props.currentChapter - 1);
+    };
+    this.goToChapter = (nextChapter) => {
+      this.props.dispatch({
+        type: 'reader/goToChapter',
+        payload: { nextChapter },
       });
     };
   }
@@ -19,18 +30,21 @@ class Search extends Component {
     // });
   }
   render() {
-    const { chapter } = this.props;
+    const { chapter = {} } = this.props;
     return (<div>
-      { chapter.title }
+      { chapter.title || '未获取到章节' }
       <p>{ chapter.body }</p>
+      <a onClick={this.prev}>上一章</a>
+      <a onClick={this.next}>下一章</a>
     </div>);
   }
 }
 
 function mapStateToProps(state) {
-  const { chapter } = state.reader;
+  const { chapter, currentChapter } = state.reader;
   return {
     chapter,
+    currentChapter,
   };
 }
 

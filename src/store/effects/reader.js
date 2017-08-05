@@ -13,9 +13,9 @@ function* getSource({ query }) {
 
 function* getChapterList() {
   try {
-    const { reader } = yield select();
-    const source = reader.currentSource || reader.source[3];
-    const { chapters } = yield call(readerServices.getChapterList, { id: source._id });
+    const { reader: { source, currentSource } } = yield select();
+    const { _id: id } = source[currentSource || 0];
+    const { chapters } = yield call(readerServices.getChapterList, { id });
     yield put({ type: 'reader/save', payload: { chapters } });
     yield getChapter();
   } catch (error) {
@@ -25,10 +25,51 @@ function* getChapterList() {
 
 function* getChapter() {
   try {
-    const { reader } = yield select();
-    const { link } = reader.currentChapters || reader.chapters[0];
+    const { reader: { chapters, currentChapter } } = yield select();
+    const { link } = chapters[currentChapter || 0];
     const { chapter } = yield call(readerServices.getChapter, { link });
-    yield put({ type: 'reader/save', payload: { chapter } });
+    if (chapter) {
+      yield put({ type: 'reader/save', payload: { chapter } });
+    } else {
+      yield getNextSource();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* goToChapter({ payload }) {
+  try {
+    const { reader: { chapters } } = yield select();
+    const nextChapter = payload.nextChapter;
+    if (nextChapter > chapters.length) {
+      console.log('没有下一章啦');
+      return;
+    }
+    if (nextChapter < 0) {
+      console.log('没有上一章啦');
+      return;
+    }
+    console.log(`正在尝试切换到章节: ${nextChapter}`);
+    console.log(`正在尝试切换到章节: ${chapters[nextChapter].title}`);
+    yield put({ type: 'reader/save', payload: { currentChapter: nextChapter } });
+    yield getChapter();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* getNextSource() {
+  try {
+    const { reader: { source, currentSource } } = yield select();
+    const nextSource = currentSource + 1;
+    if (nextSource > source.length) {
+      console.log('没有可用书源');
+      return;
+    }
+    console.log(`正在尝试切换到书源: ${source[nextSource].name}`);
+    yield put({ type: 'reader/save', payload: { currentSource: nextSource } });
+    yield getChapterList();
   } catch (error) {
     console.log(error);
   }
@@ -56,6 +97,7 @@ export default [
   takeLatest('reader/getSource', getSource),
   takeLatest('reader/getChapterList', getChapterList),
   takeLatest('reader/getChapter', getChapter),
+  takeLatest('reader/goToChapter', goToChapter),
   takeLatest('reader/search', search),
   takeLatest('reader/getDetail', getDetail),
 ];

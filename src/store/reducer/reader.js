@@ -1,4 +1,6 @@
 const initState = {
+  currentSource: 1, // 默认书源为0，这里直接跳过
+  currentChapter: 0,
   source: [],
   chapters: [],
   chapter: {},
