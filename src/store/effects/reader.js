@@ -1,9 +1,9 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import * as readerServices from '../../services/reader.js';
 
-function* getSource() {
+function* getSource({ query }) {
   try {
-    const data = yield call(readerServices.getSource, { id: '508662b8d7a545903b000027' });
+    const data = yield call(readerServices.getSource, query);
     yield put({ type: 'reader/save', payload: { source: data } });
     yield getChapterList();
   } catch (error) {
@@ -14,7 +14,7 @@ function* getSource() {
 function* getChapterList() {
   try {
     const { reader } = yield select();
-    const source = reader.currentSource || reader.source[2];
+    const source = reader.currentSource || reader.source[0];
     const { chapters } = yield call(readerServices.getChapterList, { id: source._id });
     yield put({ type: 'reader/save', payload: { chapters } });
     yield getChapter();

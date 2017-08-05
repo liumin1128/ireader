@@ -4,17 +4,11 @@ import { connect } from 'react-redux';
 class Search extends Component {
   constructor(props) {
     super(props);
-    this.search = (val) => {
-      this.props.history.push(`/search?keyword=${val}`);
+    this.readNow = () => {
       this.props.dispatch({
-        type: 'reader/search',
-        query: {
-          query: val,
-        },
+        type: 'reader/getSource',
+        query: this.props.match.params,
       });
-    };
-    this.goToDetail = (id) => {
-      this.props.history.push(`/book?id=${id}`);
     };
   }
   componentWillMount() {
@@ -24,17 +18,20 @@ class Search extends Component {
     });
   }
   render() {
-    // const { } = this.props;
+    const { detail } = this.props;
     return (<div>
-      书籍想
+      <img src={detail.cover} alt="" />
+      <h3>{detail.title}</h3>
+      <a>加入书架</a>
+      <a onClick={this.readNow}>立即阅读</a>
     </div>);
   }
 }
 
 function mapStateToProps(state) {
-  const { searchList: list } = state.reader;
+  const { detail } = state.reader;
   return {
-    list,
+    detail,
   };
 }
 
