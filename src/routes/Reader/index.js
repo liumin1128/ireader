@@ -34,11 +34,11 @@ class Search extends Component {
     // });
   }
   render() {
-    const { chapter = {}, logs = [] } = this.props;
+    const { chapter = {}, logs = [], history } = this.props;
     return (<div>
       {
         chapter.title ? <div>
-          <Head />
+          <Head history={history} />
           <Content content={chapter.body} />
           <a onClick={this.prev}>上一章</a>
           <a onClick={this.next}>下一章</a>

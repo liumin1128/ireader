@@ -10,7 +10,7 @@ class Header extends Component {
       theme: 'black',
     };
     this.back = () => {
-      history.goBack();
+      this.props.history.push('/');
     };
   }
   render() {
@@ -29,7 +29,9 @@ class Header extends Component {
       >
         <div className={styles.head}>
           <span />
-          <span className={styles.button}><img style={{ opacity: 0.5 }} src="http://ooi7vpwhj.bkt.clouddn.com/close.svg" alt="" /></span>
+          <span className={styles.button} onClick={this.back}>
+            <img style={{ opacity: 0.5 }} src="http://ooi7vpwhj.bkt.clouddn.com/close.svg" alt="" />
+          </span>
         </div>
       </Headroom>
     );
