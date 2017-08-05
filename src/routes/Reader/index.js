@@ -13,26 +13,24 @@ class Search extends Component {
     };
   }
   componentWillMount() {
-    this.props.dispatch({
-      type: 'reader/getDetail',
-      query: this.props.match.params,
-    });
+    // this.props.dispatch({
+    //   type: 'reader/getchapter',
+    //   query: this.props.match.params,
+    // });
   }
   render() {
-    const { detail } = this.props;
+    const { chapter } = this.props;
     return (<div>
-      <img src={detail.cover} alt="" />
-      <h3>{detail.title}</h3>
-      <a>加入书架</a>
-      <a onClick={this.readNow.bind(this, detail._id)}>立即阅读</a>
+      { chapter.title }
+      <p>{ chapter.body }</p>
     </div>);
   }
 }
 
 function mapStateToProps(state) {
-  const { detail } = state.reader;
+  const { chapter } = state.reader;
   return {
-    detail,
+    chapter,
   };
 }
 

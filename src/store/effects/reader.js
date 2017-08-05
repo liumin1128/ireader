@@ -14,7 +14,7 @@ function* getSource({ query }) {
 function* getChapterList() {
   try {
     const { reader } = yield select();
-    const source = reader.currentSource || reader.source[0];
+    const source = reader.currentSource || reader.source[3];
     const { chapters } = yield call(readerServices.getChapterList, { id: source._id });
     yield put({ type: 'reader/save', payload: { chapters } });
     yield getChapter();
@@ -27,7 +27,7 @@ function* getChapter() {
   try {
     const { reader } = yield select();
     const { link } = reader.currentChapters || reader.chapters[0];
-    const chapter = yield call(readerServices.getChapter, { link });
+    const { chapter } = yield call(readerServices.getChapter, { link });
     yield put({ type: 'reader/save', payload: { chapter } });
   } catch (error) {
     console.log(error);

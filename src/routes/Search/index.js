@@ -17,7 +17,7 @@ class Search extends Component {
       });
     };
     this.goToDetail = (id) => {
-      this.props.history.push(`/book?id=${id}`);
+      this.props.history.push(`/book/${id}`);
     };
   }
   componentWillMount() {
