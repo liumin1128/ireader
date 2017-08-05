@@ -50,7 +50,6 @@ function* goToChapter({ payload }) {
       console.log('没有上一章啦');
       return;
     }
-    console.log(`正在尝试切换到章节: ${nextChapter}`);
     console.log(`正在尝试切换到章节: ${chapters[nextChapter].title}`);
     yield put({ type: 'reader/save', payload: { currentChapter: nextChapter } });
     yield getChapter();
