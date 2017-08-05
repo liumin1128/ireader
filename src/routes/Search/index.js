@@ -40,7 +40,7 @@ class Search extends Component {
 }
 
 function mapStateToProps(state) {
-  const { searchList: list } = state.reader;
+  const { list } = state.search;
   return {
     list,
   };

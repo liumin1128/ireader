@@ -1,5 +1,6 @@
 const initState = {
   logs: ['日志开启'],   // 日志
+  currentBookId: '',
 };
 
 function common(state = initState, action) {

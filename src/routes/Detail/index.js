@@ -19,7 +19,7 @@ class Search extends Component {
     });
   }
   render() {
-    const { detail } = this.props;
+    const { detail = {} } = this.props;
     return (<div>
       <img src={detail.cover} alt="" />
       <h3>{detail.title}</h3>
@@ -29,8 +29,10 @@ class Search extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { detail } = state.reader;
+function mapStateToProps(state, history) {
+  const id = history.match.params.id;
+  const { [id]: current = {} } = state.reader;
+  const { detail } = current;
   return {
     detail,
   };

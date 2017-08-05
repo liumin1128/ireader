@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import Head from './Head';
 import Content from './Content';
 import Loading from './Loading';
@@ -34,7 +33,7 @@ class Search extends Component {
     // });
   }
   render() {
-    const { chapter = {}, logs = [], history } = this.props;
+    const { chapter = {}, logs = [] } = this.props;
     return (<div>
       {
         chapter.title ? <div>
@@ -49,8 +48,10 @@ class Search extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  const { chapter, currentChapter } = state.reader;
+function mapStateToProps(state, history) {
+  const id = history.match.params.id;
+  const { [id]: current = {} } = state.reader;
+  const { chapter, currentChapter = 0 } = current;
   const { logs } = state.common;
   return {
     logs,
