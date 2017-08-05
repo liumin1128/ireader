@@ -48,10 +48,8 @@ class Search extends Component {
   }
 }
 
-function mapStateToProps(state, history) {
-  const id = history.match.params.id;
-  const { [id]: current = {} } = state.reader;
-  const { chapter, currentChapter = 0 } = current;
+function mapStateToProps(state) {
+  const { chapter, currentChapter = 0 } = state.reader;
   const { logs } = state.common;
   return {
     logs,
