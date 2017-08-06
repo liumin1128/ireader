@@ -27,6 +27,8 @@ function* getSource({ query }) {
           yield put({ type: 'reader/save', payload: { ...book } });
           return;
         }
+      } else {
+        return;
       }
     }
     yield put({ type: 'common/pushLog', payload: { log: { msg: '正在获取书源', status: 'loading' } } });
@@ -113,6 +115,7 @@ function* reStore({ payload }) {
   try {
     const { reader, store } = payload;
     yield put({ type: 'reader/save', payload: { ...reader } });
+    console.log(store);
     yield put({ type: 'store/save', payload: { ...store } });
   } catch (error) {
     console.log(error);

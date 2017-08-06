@@ -1,13 +1,20 @@
 function store(state = {}, action) {
   switch (action.type) {
-    case 'store/save':
+    case 'store/save': {
+      let temp = {};
+      if (action.key) {
+        temp = {
+          [action.key]: {
+            ...state[action.key],
+            ...action.payload,
+          },
+        };
+      }
       return {
         ...state,
-        [action.key]: {
-          ...state[action.key],
-          ...action.payload,
-        },
+        ...temp,
       };
+    }
     case 'store/clear':
       return {};
     default:

@@ -18,7 +18,7 @@ const store = createStore(
   ),
 );
 
-persistStore(store);
+persistStore(store, { whitelist: ['store', 'reader'] });
 
 saga.run(effects);
 
