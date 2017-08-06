@@ -1,19 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import './style.less';
+import './index.less';
+import BookList from './BookList';
+import Current from './Current';
 
 // import styles from './Index.less';
 
-const Index = ({ store, current }) => (<div>
-  当前阅读：
-  <div>{current.title}</div>
-  书架存放：
-  {
-    store && store.map(({ title }) =>
-      <div>{title}</div>,
-    )
-  }
+const Index = ({ store, current, history }) => (<div>
+  <Current {...current} history={history} />
+  <BookList list={store} history={history} />
 </div>);
 
 function mapStateToProps(state) {

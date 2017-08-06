@@ -1,0 +1,52 @@
+.book {
+  display: flex;
+  padding: 20px;
+  padding-bottom: 0px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(0, 0, 0, 0.1);
+  box-shadow:  0 0 5px rgba(0, 0, 0, 0.5) inset;
+  color: #fff;
+  .info {
+    padding-left: 110px;
+    p{
+      font-size: 12px;
+    }
+  }
+  img.cover{
+    position: absolute;
+    z-index: 0;
+    height: 120px;
+    box-shadow: 0 0px 3px rgba(0, 0, 0, 0.3);
+  }
+  .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    filter: blur(30px);
+    z-index: -1;
+    animation: myfirst 20s;
+    animation-iteration-count: infinite;
+  }
+}
+
+@keyframes myfirst {
+    0% {
+        transform: scale(2) translateY(20%);
+    }
+    70% {
+        transform: scale(1.5) translateY(-30%);
+        -webkit-filter: blur(20px); /* Chrome, Opera */
+        -moz-filter: blur(20px);
+            -ms-filter: blur(20px);
+                filter: blur(20px);
+    }
+    100% {
+        transform: scale(2) translateY(20%);
+    }
+}

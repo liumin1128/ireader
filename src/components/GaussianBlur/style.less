@@ -1,0 +1,32 @@
+.gaussian {
+  position: relative;
+  overflow: hidden;
+}
+.bg {
+  display: block;
+  position: absolute;
+  top:-25%;
+  left: -25%;
+  width: 150%;
+  height: 150%;
+  filter: blur(30px);
+  // animation: run 25s ease-in-out;
+  animation-iteration-count: infinite;
+  background-repeat: repeat;
+  background-size: 100% 100%;
+  z-index: -1;
+  background-position: center;
+}
+
+@keyframes run {
+    0% {
+      background-position: 50% 10%;
+    }
+    70% {
+      filter: blur(50px);
+      background-position: 50% 90%;
+    }
+    100% {
+      background-position: 50% 10%;
+    }
+}
