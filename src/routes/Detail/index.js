@@ -30,7 +30,7 @@ class Search extends Component {
 }
 
 function mapStateToProps(state) {
-  const { detail } = state.reader;
+  const { detail } = state.search;
   return {
     detail,
   };

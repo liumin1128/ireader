@@ -1,5 +1,6 @@
 const initState = {
-  list: [],   // 日志
+  list: [],   // 列表
+  detail: {},   // 书籍详情
 };
 
 function search(state = initState, action) {

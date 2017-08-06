@@ -4,18 +4,27 @@ import { connect } from 'react-redux';
 import './style.css';
 // import './Index.less';
 
-import styles from './Index.less';
+// import styles from './Index.less';
 
-const Index = () => (<div>
-  <h1 className={styles.test}>I9ex1</h1>
+const Index = ({ store, current }) => (<div>
+  当前阅读：
+  <p>{current.title}</p>
+  书架存放：
+  {
+    store && store.map(({ title }) =>
+      <p>{title}</p>,
+    )
+  }
 </div>);
 
 function mapStateToProps(state) {
-  const { title } = state.common;
-  console.log('title');
-  console.log(title);
+  const store = Object.keys(state.store).map((id) => {
+    return state.store[id].detail || {};
+  });
+  const { detail: current } = state.reader;
   return {
-    title,
+    store,
+    current,
   };
 }
 

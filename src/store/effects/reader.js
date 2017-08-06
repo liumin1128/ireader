@@ -2,16 +2,6 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist/constants';
 import * as readerServices from '../../services/reader.js';
 
-function* getDetail({ query }) {
-  try {
-    const { id } = query;
-    const data = yield call(readerServices.getDetail, id);
-    yield put({ type: 'reader/save', payload: { detail: data } });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 function* getSource({ query }) {
   try {
     const { id } = query;
@@ -20,7 +10,7 @@ function* getSource({ query }) {
       if (id !== currentId) {
         const { reader, store: { [id]: book } } = yield select();
         console.log(`将本书放回书架，存入：${currentId}`);
-        yield put({ type: 'store/save', payload: { ...reader }, key: currentId });
+        yield put({ type: 'store/put', payload: { ...reader }, key: currentId });
         yield put({ type: 'reader/clear' });
         if (book) {
           console.log('从书架取回书籍');
@@ -34,7 +24,8 @@ function* getSource({ query }) {
     yield put({ type: 'common/pushLog', payload: { log: { msg: '正在获取书源', status: 'loading' } } });
     const data = yield call(readerServices.getSource, id);
     yield put({ type: 'common/pushLog', payload: { log: { msg: '获取书源成功', status: 'success' } } });
-    yield put({ type: 'reader/save', payload: { source: data, id } });
+    const { search: { detail } } = yield select();
+    yield put({ type: 'reader/save', payload: { source: data, id, detail } });
     yield getChapterList();
   } catch (error) {
     console.log(error);
@@ -128,5 +119,4 @@ export default [
   takeLatest('reader/getChapterList', getChapterList),
   takeLatest('reader/getChapter', getChapter),
   takeLatest('reader/goToChapter', goToChapter),
-  takeLatest('reader/getDetail', getDetail),
 ];

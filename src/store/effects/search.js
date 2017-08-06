@@ -10,6 +10,17 @@ function* search({ query }) {
   }
 }
 
+function* getDetail({ query }) {
+  try {
+    const { id } = query;
+    const data = yield call(readerServices.getDetail, id);
+    yield put({ type: 'search/save', payload: { detail: data } });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default [
   takeLatest('reader/search', search),
+  takeLatest('reader/getDetail', getDetail),
 ];

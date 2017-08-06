@@ -20,6 +20,7 @@ const store = createStore(
 
 persistStore(store, { whitelist: ['store', 'reader'] });
 
+
 saga.run(effects);
 
 // store.dispatch({ type: 'getSource' });
