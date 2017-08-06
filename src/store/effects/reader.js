@@ -1,4 +1,5 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { REHYDRATE } from 'redux-persist/constants';
 import * as readerServices from '../../services/reader.js';
 
 function* getDetail({ query }) {
@@ -108,7 +109,18 @@ function* getNextSource() {
   }
 }
 
+function* reStore({ payload }) {
+  try {
+    const { reader, store } = payload;
+    yield put({ type: 'reader/save', payload: { ...reader } });
+    yield put({ type: 'store/save', payload: { ...store } });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default [
+  takeLatest(REHYDRATE, reStore),
   takeLatest('reader/getSource', getSource),
   takeLatest('reader/getChapterList', getChapterList),
   takeLatest('reader/getChapter', getChapter),
