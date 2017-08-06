@@ -33,7 +33,7 @@ class Search extends Component {
     // });
   }
   render() {
-    const { chapter = {}, logs = [] } = this.props;
+    const { chapter = {}, logs = [], history } = this.props;
     return (<div>
       {
         chapter.title ? <div>
