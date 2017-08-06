@@ -1,18 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import './style.css';
-// import './Index.less';
+import './style.less';
 
 // import styles from './Index.less';
 
 const Index = ({ store, current }) => (<div>
   当前阅读：
-  <p>{current.title}</p>
+  <div>{current.title}</div>
   书架存放：
   {
     store && store.map(({ title }) =>
-      <p>{title}</p>,
+      <div>{title}</div>,
     )
   }
 </div>);

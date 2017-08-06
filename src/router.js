@@ -8,7 +8,7 @@ import {
   // Prompt,   // 防止转换
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Index from './routes/Index';
+import Index from './routes/IndexPage';
 import Search from './routes/Search';
 import Detail from './routes/Detail';
 import Reader from './routes/Reader';
