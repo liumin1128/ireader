@@ -33,14 +33,17 @@ class Search extends Component {
     });
   }
   render() {
-    const { chapter = {}, logs = [], history } = this.props;
-    return (<div>
+    const { chapter = {}, detail = {}, logs = [], history } = this.props;
+    return (<div style={{ background: '#FAF9DE', color: 'rgba(0, 0,0, 0.7)' }}>
       {
         chapter.title ? <div>
-          <Head history={history} />
+          <Head title={chapter.title} bookName={detail.title} history={history} />
           <Content content={chapter.body} />
-          <a onClick={this.prev}>上一章</a>
-          <a onClick={this.next}>下一章</a>
+          <div style={{ padding: 20, display: 'flex', justifyContent: 'space-around' }}>
+            <a onClick={this.prev}>上一章</a>
+            <a onClick={this.next}>下一章</a>
+          </div>
+
         </div> : <Loading logs={logs} />
       }
 
@@ -49,11 +52,12 @@ class Search extends Component {
 }
 
 function mapStateToProps(state) {
-  const { chapter, currentChapter = 0 } = state.reader;
+  const { chapter, currentChapter = 0, detail } = state.reader;
   const { logs } = state.common;
   return {
     logs,
     chapter,
+    detail,
     currentChapter,
   };
 }

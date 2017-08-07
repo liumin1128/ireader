@@ -12,10 +12,14 @@ class Header extends Component {
     };
   }
   render() {
+    const { bookName, title } = this.props;
     return (
       <Headroom >
         <div className={styles.head}>
-          <span />
+          <div className={styles.info}>
+            <h3>{bookName}</h3>
+            <p>{title}</p>
+          </div>
           <span className={styles.button} onClick={this.back}>
             <img style={{ opacity: 0.5 }} src={CloseIcon} alt="" />
           </span>
