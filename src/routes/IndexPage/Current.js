@@ -20,8 +20,6 @@ export default ({ _id, cover, title, lastChapter, author, history }) => {
           搜书
         </div>
       </h1>
-
-
       <img className={styles.bg} src={cover} alt="" />
       <div onClick={goToDetail}>
         <img className={styles.cover} src={cover} alt="" />

@@ -15,6 +15,8 @@ const Index = ({ store, current, history }) => (<div>
 function mapStateToProps(state) {
   const store = Object.keys(state.store).map((id) => {
     return state.store[id].detail || {};
+  }).filter((i) => {
+    return i._id;
   });
   const { detail: current } = state.reader;
   return {

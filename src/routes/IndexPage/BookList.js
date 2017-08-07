@@ -17,7 +17,7 @@ export default ({ list = [], history }) => {
               <p>{title}</p>
             </div>))
         }
+        {list.length === 2 && <div className={styles.book} />}
       </div>
-      {list.length === 2 && <div className={styles.books} />}
     </GaussianBlur>);
 };
