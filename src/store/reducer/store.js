@@ -1,3 +1,4 @@
+
 function store(state = {}, action) {
   switch (action.type) {
     case 'store/put': {

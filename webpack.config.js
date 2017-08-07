@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const manifest = require('./dll/vendors-manifest.json');
+// const manifest = require('./dll/vendors-manifest.json');
 
 module.exports = () => {
   return {
