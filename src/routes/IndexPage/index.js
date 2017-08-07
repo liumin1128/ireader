@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import chunk from 'lodash/chunk';
 
 import './index.less';
 import BookList from './BookList';
 import Current from './Current';
-
 // import styles from './Index.less';
 
 const Index = ({ store, current, history }) => (<div>
   <Current {...current} history={history} />
-  <BookList list={store} history={history} />
+  {chunk(store, 3).map(i => <BookList list={i} history={history} />)}
 </div>);
 
 function mapStateToProps(state) {

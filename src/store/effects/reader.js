@@ -7,11 +7,14 @@ function* getSource({ query }) {
     const { id } = query;
     const { reader: { id: currentId } } = yield select();
     if (currentId) {
+      console.log('xxxxxxxx');
       if (id !== currentId) {
         const { reader, store: { [id]: book } } = yield select();
         console.log(`将本书放回书架，存入：${currentId}`);
         yield put({ type: 'store/put', payload: { ...reader }, key: currentId });
         yield put({ type: 'reader/clear' });
+        console.log('book');
+        console.log(book);
         if (book) {
           console.log('从书架取回书籍');
           yield put({ type: 'reader/save', payload: { ...book } });

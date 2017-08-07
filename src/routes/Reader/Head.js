@@ -11,6 +11,7 @@ class Header extends Component {
     };
     this.back = () => {
       this.props.history.push('/');
+      window.scrollTo(0, 0);
     };
   }
   render() {

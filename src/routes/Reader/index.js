@@ -27,10 +27,10 @@ class Search extends Component {
     };
   }
   componentWillMount() {
-    // this.props.dispatch({
-    //   type: 'reader/getchapter',
-    //   query: this.props.match.params,
-    // });
+    this.props.dispatch({
+      type: 'reader/getSource',
+      query: this.props.match.params,
+    });
   }
   render() {
     const { chapter = {}, logs = [], history } = this.props;

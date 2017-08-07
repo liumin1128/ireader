@@ -8,7 +8,7 @@ export default ({ list = [], history }) => {
     history.push(`/reader/${id}`);
   }
   return (
-    <GaussianBlur src={list[0] && list[0].cover}>
+    <GaussianBlur src={list[0] && (list[0].cover || list[1].cover)}>
       <div className={styles.books}>
         {
           list.map(({ title, _id, cover }) => (
@@ -18,5 +18,6 @@ export default ({ list = [], history }) => {
             </div>))
         }
       </div>
+      {list.length === 2 && <div className={styles.books} />}
     </GaussianBlur>);
 };
