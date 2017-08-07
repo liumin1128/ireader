@@ -22,14 +22,15 @@ class Search extends Component {
   }
   componentWillMount() {
     console.log(this);
-    // this.props.dispatch({
-    //   type: 'search/search',
-    // });
+  }
+  componentDidMount() {
+    this.input.input.focus();
+    console.log(this.input);
   }
   render() {
     const { list = [], history } = this.props;
     return (<div>
-      <SearchBar history={history} onSubmit={this.search} />
+      <SearchBar ref={(c) => { this.input = c; }} history={history} onSubmit={this.search} />
       {
         list.map(i => (<div onClick={this.goToDetail.bind(this, i._id)} key={i._id}>
           <Item {...i} />

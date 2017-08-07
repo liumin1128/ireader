@@ -10,13 +10,11 @@ class SearchBar extends Component {
       const value = this.input.value;
       if (value) {
         this.props.onSubmit(value);
-        // this.input.value = '';
       }
       e.preventDefault();
     };
     this.cancel = () => {
-      console.log(this);
-      this.props.history.push('/');
+      this.props.history.goBack();
     };
   }
   render() {

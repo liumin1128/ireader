@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Headroom from 'react-headroom';
 import Ripples from 'react-ripples';
 import styles from './Head.less';
+import CloseIcon from './close.svg';
 
 class Header extends Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class Header extends Component {
           <span />
           <Ripples>
             <span className={styles.button} onClick={this.back}>
-              <img style={{ opacity: 0.5 }} src="http://ooi7vpwhj.bkt.clouddn.com/close.svg" alt="" />
+              <img style={{ opacity: 0.5 }} src={CloseIcon} alt="" />
             </span>
           </Ripples>
         </div>

@@ -1,9 +1,9 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { REHYDRATE } from 'redux-persist/constants';
 import * as readerServices from '../../services/reader.js';
-import { log } from '../../utils/common.js';
+// import { log } from '../../utils/common.js';
 
-console.log = log;
+// console.log = log;
 
 function* getSource({ query }) {
   try {
@@ -116,7 +116,7 @@ function* reStore({ payload }) {
   try {
     const { reader, store } = payload;
     yield put({ type: 'reader/save', payload: { ...reader } });
-    console.log(store);
+    // console.log(store);
     yield put({ type: 'store/save', payload: { ...store } });
   } catch (error) {
     console.log(error);
