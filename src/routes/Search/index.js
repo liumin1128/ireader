@@ -27,9 +27,9 @@ class Search extends Component {
     // });
   }
   render() {
-    const { list = [] } = this.props;
+    const { list = [], history } = this.props;
     return (<div>
-      <SearchBar onSubmit={this.search} />
+      <SearchBar history={history} onSubmit={this.search} />
       {
         list.map(i => (<div onClick={this.goToDetail.bind(this, i._id)} key={i._id}>
           <Item {...i} />

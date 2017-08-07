@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Headroom from 'react-headroom';
-
+import Ripples from 'react-ripples';
 import styles from './Head.less';
 
 class Header extends Component {
@@ -30,9 +30,11 @@ class Header extends Component {
       >
         <div className={styles.head}>
           <span />
-          <span className={styles.button} onClick={this.back}>
-            <img style={{ opacity: 0.5 }} src="http://ooi7vpwhj.bkt.clouddn.com/close.svg" alt="" />
-          </span>
+          <Ripples>
+            <span className={styles.button} onClick={this.back}>
+              <img style={{ opacity: 0.5 }} src="http://ooi7vpwhj.bkt.clouddn.com/close.svg" alt="" />
+            </span>
+          </Ripples>
         </div>
       </Headroom>
     );

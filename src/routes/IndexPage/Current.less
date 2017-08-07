@@ -2,12 +2,33 @@
   display: flex;
   padding: 20px;
   padding-bottom: 0px;
-  height: 120px;
+  height: 180px;
   overflow: hidden;
   position: relative;
   background: rgba(0, 0, 0, 0.1);
   box-shadow:  0 -3px 3px rgba(0, 0, 0, 0.2) inset;
   color: #fff;
+  .wrap {
+    width: 100%;
+  }
+  .title {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .search {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 100;
+    .icon {
+      width: 14px;
+      height: 14px;
+      margin-right: 4px;
+    }
+  }
   .info {
     padding-left: 110px;
     p{
@@ -30,7 +51,7 @@
     background-size: 100%;
     filter: blur(30px);
     z-index: -1;
-    // animation: myfirst 20s;
+    animation: myfirst 20s;
     animation-iteration-count: infinite;
   }
 }

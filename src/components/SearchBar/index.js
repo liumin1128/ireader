@@ -14,6 +14,10 @@ class SearchBar extends Component {
       }
       e.preventDefault();
     };
+    this.cancel = () => {
+      console.log(this);
+      this.props.history.push('/');
+    };
   }
   render() {
     return (
@@ -23,7 +27,7 @@ class SearchBar extends Component {
             <img className={styles.icon} src="http://7xiy7w.com1.z0.glb.clouddn.com/search%20%282%29.svg" alt="" />
             <input ref={(c) => { this.input = c; }} id="text" placeholder="输入关键字搜索" type="search" />
           </div>
-          <span className={styles.cancel}>取消</span>
+          <span className={styles.cancel} onClick={this.cancel}>取消</span>
         </div>
       </form>
     );
