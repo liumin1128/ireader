@@ -21,7 +21,7 @@ class SearchBar extends Component {
   }
   render() {
     return (
-      <form action="" onSubmit={this.onSubmit}>
+      <form className={styles.search} action="" onSubmit={this.onSubmit}>
         <div className={styles.box}>
           <div className={styles.input}>
             <img className={styles.icon} src="http://7xiy7w.com1.z0.glb.clouddn.com/search%20%282%29.svg" alt="" />

@@ -21,7 +21,7 @@ export default ({ _id, cover, title, lastChapter, author, history }) => {
         </div>
       </h1>
       <img className={styles.bg} src={cover} alt="" />
-      <div onClick={goToDetail}>
+      <div onClick={goToDetail} style={{ height: 200 }}>
         <img className={styles.cover} src={cover} alt="" />
         <div className={styles.info}>
           <h5>{title}</h5>
