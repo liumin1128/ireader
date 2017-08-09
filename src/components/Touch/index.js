@@ -8,6 +8,7 @@ export default ({ children, onPress, onTap }) => {
       pressed = true;
       onPress();
     }, 800);
+    return false;
   }
   function touchEnd() {
     if (pressed) {
@@ -16,6 +17,7 @@ export default ({ children, onPress, onTap }) => {
       clearTimeout(timeout);
       onTap();
     }
+    return false;
   }
   return (<div onTouchStart={touchStart} onTouchEnd={touchEnd}>
     { children }

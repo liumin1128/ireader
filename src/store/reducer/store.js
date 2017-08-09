@@ -21,6 +21,11 @@ function store(state = {}, action) {
         ...state,
         ...action.payload,
       };
+    case 'store/delete':
+      return {
+        ...state,
+        [action.key]: undefined,
+      };
     case 'store/clear':
       return {};
     default:
