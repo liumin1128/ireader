@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import FastClick from 'fastclick';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
+import './index.less';
 import Index from './routes/IndexPage';
 import Search from './routes/Search';
 import Detail from './routes/Detail';
@@ -18,8 +19,6 @@ import Reader from './routes/Reader';
 import store from './store';
 
 FastClick.attach(document.body);
-
-window.ontouchstart = function (e) { e.preventDefault(); };
 
 // 模板，套路
 const RouterConfig = () => (

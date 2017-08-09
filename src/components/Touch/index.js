@@ -7,7 +7,7 @@ export default ({ children, onPress, onTap }) => {
     timeout = setTimeout(() => {
       pressed = true;
       onPress();
-    }, 800);
+    }, 500);
     return false;
   }
   function touchEnd() {
