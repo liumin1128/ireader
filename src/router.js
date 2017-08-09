@@ -8,11 +8,15 @@ import {
   // Prompt,   // 防止转换
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import FastClick from 'fastclick';
+
 import Index from './routes/IndexPage';
 import Search from './routes/Search';
 import Detail from './routes/Detail';
 import Reader from './routes/Reader';
 import store from './store';
+
+FastClick.attach(document.body);
 
 // 模板，套路
 const RouterConfig = () => (

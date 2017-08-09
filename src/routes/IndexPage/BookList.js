@@ -8,12 +8,12 @@ export default ({ list = [], history }) => {
   return (
     <div className={styles.books}>
       {
-          list.map(({ title, _id, cover }) => (
-            <div className={styles.book} onClick={goToDetail.bind(this, _id)}>
-              <img src={cover} alt="" />
-              <p>{title}</p>
-            </div>))
-        }
+        list.map(({ title, _id, cover }) => (
+          <div className={styles.book} onClick={goToDetail.bind(this, _id)}>
+            <img src={cover} alt="" />
+            <p>{title}</p>
+          </div>))
+      }
       {list.length === 2 && <div className={styles.book} />}
     </div>
   );

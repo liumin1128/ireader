@@ -59,6 +59,7 @@
     "webpack-dev-server": "^2.6.1"
   },
   "dependencies": {
+    "fastclick": "^1.0.6",
     "material-ui": "^1.0.0-beta.3",
     "material-ui-icons": "^1.0.0-alpha.19",
     "preact": "^8.2.1",
@@ -71,6 +72,7 @@
     "react-router-dom": "^4.1.2",
     "redux": "^3.7.2",
     "redux-persist": "^4.8.3",
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^0.15.6",
+    "sweetalert2": "^6.6.6"
   }
 }
