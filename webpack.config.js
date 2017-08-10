@@ -62,13 +62,13 @@ module.exports = () => {
     },
     // devtool: 'eval',
     // devtool: 'cheap-source-map',
-    resolve: {
-      alias: {
-        react: 'preact-compat',
-        'react-dom': 'preact-compat',
-        'preact-compat': 'preact-compat/dist/preact-compat',
-      },
-    },
+    // resolve: {
+    //   alias: {
+    //     react: 'preact-compat',
+    //     'react-dom': 'preact-compat',
+    //     'preact-compat': 'preact-compat/dist/preact-compat',
+    //   },
+    // },
     plugins: [
       new ExtractTextPlugin('index.css'), // 单独打包css
       new webpack.DefinePlugin({
