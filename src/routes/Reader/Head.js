@@ -13,10 +13,10 @@ class Header extends Component {
     };
   }
   render() {
-    const { bookName, title } = this.props;
+    const { bookName, title, color = {} } = this.props;
     return (
       <Headroom >
-        <div className={styles.head}>
+        <div className={styles.head} style={color}>
           <div className={styles.info}>
             <h3>{bookName}</h3>
             <p>{title}</p>

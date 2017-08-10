@@ -4,7 +4,6 @@ import swal from 'sweetalert2';
 import Touch from '../../components/Touch';
 import styles from './BookList.less';
 
-
 export default ({ list = [], history, dispatch }) => {
   function goToDetail(id) {
     history.push(`/reader/${id}`);

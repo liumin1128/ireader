@@ -114,10 +114,11 @@ function* getNextSource() {
 
 function* reStore({ payload }) {
   try {
-    const { reader, store } = payload;
+    const { reader, store, setting } = payload;
     yield put({ type: 'reader/save', payload: { ...reader } });
     // console.log(store);
     yield put({ type: 'store/save', payload: { ...store } });
+    yield put({ type: 'setting/save', payload: { ...setting } });
   } catch (error) {
     console.log(error);
   }

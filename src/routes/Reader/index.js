@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import Head from './Head';
 import Content from './Content';
 import Loading from './Loading';
+import Setting from './Setting';
+
+import styles from './index.less';
 
 class Search extends Component {
   constructor(props) {
@@ -39,12 +42,22 @@ class Search extends Component {
     window.scrollTo(0, 0);
   }
   render() {
-    const { chapter = {}, detail = {}, logs = [], history } = this.props;
-    return (<div style={{ background: '#FAF9DE', color: 'rgba(0, 0,0, 0.7)' }}>
+    const {
+      chapter = {},
+      detail = {},
+      logs = [],
+      color = {},
+      style,
+      mode,
+      history,
+      dispatch,
+    } = this.props;
+    return (<div className={styles.reader} style={color}>
       {
         chapter.title ? <div>
-          <Head title={chapter.title} bookName={detail.title} history={history} />
-          <Content content={chapter.body} />
+          <Head title={chapter.title} bookName={detail.title} history={history} color={color} />
+          <Content style={style} content={chapter.body} />
+
           <div style={{
             padding: 20,
             display: 'flex',
@@ -53,13 +66,20 @@ class Search extends Component {
             borderTop: '1px dashed rgba(0, 0,0, 0.1)',
           }}
           >
-            <a onClick={this.prev}>设置</a>
-            <a onClick={this.goToChapters}>章节列表</a>
-            <a onClick={this.prev}>上一章</a>
-            <a onClick={this.next}>下一章</a>
+            <Setting
+              mode={mode}
+              style={style}
+              dispatch={dispatch}
+            >
+              <span onClick={this.prev}>设置</span>
+            </Setting>
+            <span onClick={this.goToChapters}>章节列表</span>
+            <span onClick={this.prev}>上一章</span>
+            <span onClick={this.next}>下一章</span>
           </div>
 
         </div> : <Loading logs={logs} />
+
       }
 
     </div>);
@@ -68,12 +88,15 @@ class Search extends Component {
 
 function mapStateToProps(state) {
   const { chapter, currentChapter = 0, detail } = state.reader;
+  console.log('setting');
+  console.log(state.setting);
   const { logs } = state.common;
   return {
     logs,
     chapter,
     detail,
     currentChapter,
+    ...state.setting,
   };
 }
 
