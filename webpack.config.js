@@ -75,16 +75,16 @@ module.exports = () => {
         'process.env.NODE_ENV': '"production"',
       }),
       new CopyWebpackPlugin([
-        {
-          from: './dll/vendors.dll.js',
-          to: 'dll.js',
-        },
+        // {
+        //   from: './dll/vendors.dll.js',
+        //   to: 'dll.js',
+        // },
         {
           from: './public/**/*',
           to: '[name].[ext]',
         },
       ], {
-        ignore: ['index.html'],
+        ignore: ['index.html', 'index.html'],
         copyUnmodified: true,
         debug: 'debug',
       }),
