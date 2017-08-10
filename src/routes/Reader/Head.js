@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Headroom from 'react-headroom';
 import styles from './Head.less';
 import CloseIcon from './close.svg';
+// import MenuIcon from './menu.svg';
 
 class Header extends Component {
   constructor(props) {
@@ -20,9 +21,11 @@ class Header extends Component {
             <h3>{bookName}</h3>
             <p>{title}</p>
           </div>
-          <span className={styles.button} onClick={this.back}>
-            <img style={{ opacity: 0.5 }} src={CloseIcon} alt="" />
-          </span>
+          <div className={styles.menus}>
+            <span className={styles.button} onClick={this.back}>
+              <img style={{ opacity: 0.5 }} src={CloseIcon} alt="" />
+            </span>
+          </div>
         </div>
       </Headroom>
     );

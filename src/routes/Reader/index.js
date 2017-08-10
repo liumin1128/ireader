@@ -25,12 +25,18 @@ class Search extends Component {
         payload: { nextChapter },
       });
     };
+    this.goToChapters = () => {
+      this.props.history.push('/cps');
+    };
   }
   componentWillMount() {
     this.props.dispatch({
       type: 'reader/getSource',
       query: this.props.match.params,
     });
+  }
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
   render() {
     const { chapter = {}, detail = {}, logs = [], history } = this.props;
@@ -39,7 +45,16 @@ class Search extends Component {
         chapter.title ? <div>
           <Head title={chapter.title} bookName={detail.title} history={history} />
           <Content content={chapter.body} />
-          <div style={{ padding: 20, display: 'flex', justifyContent: 'space-around' }}>
+          <div style={{
+            padding: 20,
+            display: 'flex',
+            justifyContent: 'space-around',
+            marginTop: 10,
+            borderTop: '1px dashed rgba(0, 0,0, 0.1)',
+          }}
+          >
+            <a onClick={this.prev}>设置</a>
+            <a onClick={this.goToChapters}>章节列表</a>
             <a onClick={this.prev}>上一章</a>
             <a onClick={this.next}>下一章</a>
           </div>
