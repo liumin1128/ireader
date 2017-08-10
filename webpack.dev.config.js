@@ -76,7 +76,7 @@ module.exports = () => {
         'process.env.NODE_ENV': '"development"',
       }),
       new CopyWebpackPlugin([{ from: './dll/vendors.dll.js', to: 'dll.js' }]),
-      new HtmlWebpackPlugin({ template: './public/index.html' }),
+      new HtmlWebpackPlugin({ template: './public/index.dev.html' }),
       // new webpack.HotModuleReplacementPlugin(), // enable HMR globally
       new webpack.NoEmitOnErrorsPlugin(), // 遇到错误继续
       new webpack.NamedModulesPlugin(), // prints more readable module names

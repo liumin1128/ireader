@@ -71,7 +71,7 @@ class Search extends Component {
               style={style}
               dispatch={dispatch}
             >
-              <span onClick={this.prev}>设置</span>
+              <span>设置</span>
             </Setting>
             <span onClick={this.goToChapters}>章节列表</span>
             <span onClick={this.prev}>上一章</span>
