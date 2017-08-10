@@ -34,7 +34,7 @@ class Chapters extends Component {
   componentDidMount() {
     setTimeout(() => {
       try {
-        document.getElementById(`${this.props.currentChapter || 0}`).scrollIntoView(false);
+        document.getElementById(`${(this.props.currentChapter + 7) || 0}`).scrollIntoView(false);
       } catch (error) {
         console.log(error);
       }
