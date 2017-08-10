@@ -37,7 +37,7 @@ export default ({ list = [], history, dispatch }) => {
         list.map(({ title, _id, cover }) => (
           <div className={styles.book}>
             <Touch
-              onClick={goToDetail.bind(this, _id)}
+              onTap={goToDetail.bind(this, _id)}
               onPress={press.bind(this, _id, title)}
             >
               <div className={styles.cover} style={{ backgroundImage: `url(${cover})` }} />
