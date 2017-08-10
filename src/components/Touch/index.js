@@ -6,7 +6,7 @@ export default ({ children, onPress, onTap }) => {
   function touchStart() {
     timeout = setTimeout(() => {
       pressed = true;
-      onPress();
+      if (onPress) onPress();
     }, 500);
     return false;
   }
@@ -15,7 +15,7 @@ export default ({ children, onPress, onTap }) => {
       pressed = false;
     } else {
       clearTimeout(timeout);
-      onTap();
+      if (onTap) onTap();
     }
     return false;
   }

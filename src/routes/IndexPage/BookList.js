@@ -37,7 +37,7 @@ export default ({ list = [], history, dispatch }) => {
         list.map(({ title, _id, cover }) => (
           <div className={styles.book}>
             <Touch
-              onTap={goToDetail.bind(this, _id)}
+              onClick={goToDetail.bind(this, _id)}
               onPress={press.bind(this, _id, title)}
             >
               <div className={styles.cover} style={{ backgroundImage: `url(${cover})` }} />
@@ -46,7 +46,7 @@ export default ({ list = [], history, dispatch }) => {
           </div>
         ))
       }
-      {list.length === 2 && <div className={styles.book} />}
+      {(list.length % 3) === 2 && <div className={styles.book} />}
     </div>
   );
 };

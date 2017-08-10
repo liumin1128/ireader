@@ -11,7 +11,14 @@ import recommend from '../../utils/recommond.js';
 const Index = ({ store, current, history, dispatch }) => (<div>
   <Current {...(current._id ? current : recommend[0])} history={history} />
   <BookList list={store} history={history} dispatch={dispatch} />
-  <p className={styles.tip}>书架空空如也，点右上角找书哦~</p>
+  <p className={styles.tip}>
+    {
+      store.length === 0 ? '书架空空如也，点右上角找书哦~' : '点击右上角按钮添加书籍'
+    }
+    {
+      store.length >= 6 && ', 长按可删除书籍~'
+    }
+  </p>
 </div>);
 
 function mapStateToProps(state) {
