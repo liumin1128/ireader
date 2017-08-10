@@ -12,14 +12,16 @@ class Header extends Component {
     this.open = () => {
       this.setState({
         visible: true,
+      }, () => {
+        document.addEventListener('click', this.close);
       });
-      document.addEventListener('click', this.close);
     };
     this.close = () => {
       this.setState({
         visible: false,
+      }, () => {
+        document.removeEventListener('click', this.close);
       });
-      document.removeEventListener('click', this.close);
     };
     this.stopEvent = (e) => {
       // 阻止合成事件间的冒泡
