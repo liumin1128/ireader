@@ -4,7 +4,6 @@ const initState = {
   source: [],         // 源列表
   chapters: [],       // 章节列表
   chapter: {},        // 当前章节
-  searchList: [],     // 搜索结果列表
   detail: {},         // 书籍详情
 };
 

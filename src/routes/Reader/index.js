@@ -88,8 +88,6 @@ class Search extends Component {
 
 function mapStateToProps(state) {
   const { chapter, currentChapter = 0, detail } = state.reader;
-  console.log('setting');
-  console.log(state.setting);
   const { logs } = state.common;
   return {
     logs,
