@@ -6,6 +6,8 @@
 
 github：[https://github.com/liumin1128/ireader](https://github.com/liumin1128/ireader)
 
+前端技术交流QQ新群：648060073（盗火）
+
 -------
 
 
@@ -550,3 +552,7 @@ proxy: {
   },
 },
 ```
+
+
+
+
