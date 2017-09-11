@@ -28,6 +28,8 @@ export default ({ children, onPress, onTap }) => {
     cancel = true;
   }
   return (<div
+    onMouseDown={touchStart}
+    onMouseUp={touchEnd}
     onTouchMove={touchCancel}
     onTouchCancel={touchCancel}
     onTouchStart={touchStart}
